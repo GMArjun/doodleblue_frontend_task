@@ -4,7 +4,7 @@
     <div class="px-8 py-2 bg-grey content rounded">
       <div v-for="(category,i) in cateData" :key="i" @click="showByCategory(category.Value,i)">
         <div
-          class="list py-3 cursor-pointer font-bold"
+          class="list py-3 cursor-pointer font-medium"
           :class="{ active: activeIndex === i }"
         >{{category.Name}}</div>
       </div>

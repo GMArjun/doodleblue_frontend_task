@@ -1,11 +1,11 @@
 <template>
-  <div class="holder w-4/12" :key="pIndex">
+  <div class="holder w-6/12 xl:w-4/12" :key="pIndex">
     <div class="product m-4 rounded-md cursor-pointer" @click="modalVisible = true">
       <div class="relative overflow-hidden productImage rounded-t-md h-56">
         <img :src="pData.image" class="w-full h-full object-cover transition ease-in duration-300" />
       </div>
       <div class="px-4 py-6 text-center">
-        <div class="font-bold text-xl leading-none mb-2">{{pData.title}}</div>
+        <div class="font-bold text-xl leading-none mb-2 truncate">{{pData.title}}</div>
         <div class="text-sm flex justify-center">
           <span v-if="pData.originalPrice" class="mr-2 originalPrice">${{pData.originalPrice}}</span>
           <span>${{pData.price}}</span>

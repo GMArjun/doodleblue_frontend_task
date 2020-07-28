@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div class="container mx-auto px-3">
+    <div class="max-w-screen-xl mx-auto px-6 xl:px-0">
       <div class="flex py-12">
         <div class="self-center text-4xl font-medium mr-auto leading-none">Products</div>
         <button
@@ -19,6 +19,7 @@
       <div class="flex flex-wrap">
         <div class="w-3/12 pr-6">
           <Categories-Tray :cateData="Categories" @selectedCategory="handleSelectedCategory" />
+          <TopProducts class="my-10" :productsData="products" v-if="products && products.length" />
         </div>
 
         <div class="w-9/12">
@@ -41,6 +42,7 @@
 import ProductController from "./components/productController";
 import CategoriesTray from "./components/categories";
 import Product from "./components/product";
+import TopProducts from "./components/topProducts";
 
 const Categories = [
   {
@@ -71,6 +73,7 @@ export default {
     "P-Controller": ProductController,
     "Categories-Tray": CategoriesTray,
     Product,
+    TopProducts,
   },
   data() {
     return {

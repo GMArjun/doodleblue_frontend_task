@@ -13,9 +13,10 @@
                     <label class="block text-xl mb-2">Product Category</label>
                     <select class="border w-full p-4" v-model="selectedCategory">
                       <option value disabled>Select</option>
-                      <option value="category_1">Cat 1</option>
-                      <option value="category_2">Cat 2</option>
-                      <option value="category_3">Cat 3</option>
+                      <option value="Cate_1">Books</option>
+                      <option value="Cate_2">Dress</option>
+                      <option value="Cate_3">Bags</option>
+                      <option value="Cate_4">Mobiles</option>
                     </select>
                   </div>
                   <div class="mb-6">

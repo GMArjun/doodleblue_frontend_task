@@ -12,7 +12,10 @@
       <P-Controller title="Add Product" @productDataBack="handleIncomingProduct" ref="addProd" />
 
       <div class="flex flex-wrap">
-        <div class="w-3/12 px-3"></div>
+        <div class="w-3/12">
+          <Categories-Tray :cateData="Categories" />
+        </div>
+
         <div class="w-9/12">
           <div class="flex flex-wrap products">
             <div v-for="(product,i) in products" :key="i" class="holder w-4/12">
@@ -50,15 +53,42 @@
 
 <script>
 import ProductController from "./components/productController";
+import CategoriesTray from "./components/categories";
+
+const Categories = [
+  {
+    Name: "All Categories",
+    Value: "Cate_0",
+  },
+  {
+    Name: "Books",
+    Value: "Cate_1",
+  },
+  {
+    Name: "Dress",
+    Value: "Cate_2",
+  },
+  {
+    Name: "Bags",
+    Value: "Cate_3",
+  },
+  {
+    Name: "Mobiles",
+    Value: "Cate_4",
+  },
+];
+
 export default {
   name: "App",
   data() {
     return {
       products: [],
+      Categories,
     };
   },
   components: {
     "P-Controller": ProductController,
+    "Categories-Tray": CategoriesTray,
   },
   mounted() {
     if (localStorage && localStorage["products"].length) {

@@ -1,11 +1,11 @@
 <template>
   <transition name="top">
-    <div class="modal" v-if="isModalOpen">
+    <div class="modal">
       <div class="modal-wrapper">
         <div class="modal-center">
           <div class="modal-container px-5">
             <div class="modal-content rounded-lg">
-              <div class="modal-close mainGradient" @click="isModalOpen = false">x</div>
+              <div class="modal-close mainGradient" @click="closeModal">x</div>
               <div class="px-20 py-10">
                 <h1 class="text-center font-bold text-4xl">{{title}}</h1>
                 <div class="pt-16 pb-8">
@@ -63,7 +63,7 @@
                 <div class="flex justify-center">
                   <button
                     class="bg-black text-white p-2 px-8 w-40 mr-8 rounded uppercase"
-                    @click="isModalOpen = false"
+                    @click="closeModal"
                   >Cancel</button>
                   <button
                     @click="saveProduct"
@@ -89,7 +89,7 @@ export default {
       productPrice: "",
       isTopProduct: false,
       imageData: "",
-      isModalOpen: false,
+      isModalOpen: true,
     };
   },
   props: ["exist", "existIndex", "title"],
@@ -139,6 +139,9 @@ export default {
       } else {
         console.log("Fill ALl Fields");
       }
+    },
+    closeModal() {
+      this.$emit("closeModal", false);
     },
   },
 };

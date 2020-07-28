@@ -4,12 +4,17 @@
       <div class="flex py-12">
         <div class="self-center text-4xl font-bold mr-auto leading-none">Products</div>
         <button
-          @click="$refs.addProd.isModalOpen = true"
+          @click="modalVisible = true"
           class="px-12 py-4 rounded mainGradient text-white text-2xl leading-none focus:outline-none"
         >Add Product</button>
       </div>
 
-      <P-Controller title="Add Product" @productDataBack="handleIncomingProduct" ref="addProd" />
+      <P-Controller
+        title="Add Product"
+        @productDataBack="handleIncomingProduct"
+        @closeModal="modalVisible = $event"
+        v-if="modalVisible"
+      />
 
       <div class="flex flex-wrap">
         <div class="w-3/12 pr-6">
@@ -19,7 +24,7 @@
         <div class="w-9/12">
           <div class="flex flex-wrap products">
             <Product
-              v-for="(product,i) in products"
+              v-for="(product,i) in productsClone"
               :key="i"
               :pData="product"
               :pIndex="i"
@@ -70,7 +75,9 @@ export default {
   data() {
     return {
       products: [],
+      productsClone: [],
       Categories,
+      modalVisible: false,
     };
   },
   mounted() {
@@ -81,6 +88,11 @@ export default {
     ) {
       this.products = JSON.parse(localStorage["products"]);
     }
+  },
+  watch: {
+    products: function (newVal) {
+      this.productsClone = JSON.parse(JSON.stringify(newVal));
+    },
   },
   methods: {
     handleIncomingProduct(params) {
@@ -95,7 +107,11 @@ export default {
       let categoryFiltered = this.products.filter(
         (product) => product.category == selected
       );
-      this.products = categoryFiltered;
+      if (selected === "Cate_0") {
+        this.productsClone = JSON.parse(JSON.stringify(this.products));
+      } else {
+        this.productsClone = categoryFiltered;
+      }
     },
     setLocalCopy() {
       if (localStorage) {

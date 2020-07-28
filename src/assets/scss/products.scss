@@ -6,6 +6,7 @@
 .products {
     .product {
         box-shadow: 0px 0px 12px #e0e0e0;
+
         &:hover {
             .productImage {
                 img {
@@ -13,5 +14,162 @@
                 }
             }
         }
+    }
+}
+
+
+
+
+.modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: auto;
+    z-index: 11;
+    text-align: inherit;
+    will-change: transform;
+    pointer-events: auto;
+    background-color: rgba(0, 0, 0, 0.3);
+
+    .modal-wrapper {
+        display: table;
+        height: 100%;
+        width: 100%;
+        table-layout: fixed;
+        pointer-events: none;
+
+        .modal-center {
+            display: table-cell;
+            vertical-align: middle;
+
+            .modal-container {
+                width: 700px;
+                margin: 120px auto;
+                max-width: 100%;
+                max-height: 100%;
+                z-index: 12;
+                pointer-events: auto;
+
+                .modal-content {
+                    box-shadow: 1px 5px 15px 1px #0003;
+                    @apply relative bg-white;
+
+                    .modal-close {
+                        @apply absolute flex justify-center rounded-full text-white items-center h-12 w-12 cursor-pointer;
+                        top: -16px;
+                        right: -16px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
+
+// Custom Checkbox
+
+/* Base for label styling */
+[type="checkbox"]:not(:checked),
+[type="checkbox"]:checked {
+    position: absolute;
+    left: -9999px;
+}
+
+[type="checkbox"]:not(:checked)+label,
+[type="checkbox"]:checked+label {
+    position: relative;
+    padding-left: 1.95em;
+    cursor: pointer;
+}
+
+/* checkbox aspect */
+[type="checkbox"]:not(:checked)+label:before,
+[type="checkbox"]:checked+label:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1.25em;
+    height: 1.25em;
+    border: 1px solid #ccc;
+    background: #fff;
+    border-radius: 2px;
+}
+
+/* checked mark aspect */
+[type="checkbox"]:not(:checked)+label:after,
+[type="checkbox"]:checked+label:after {
+    content: '\2713\0020';
+    position: absolute;
+    top: 0.10em;
+    left: 0.18em;
+    font-size: 1.2em;
+    line-height: 0.8;
+    color: #09ad7e;
+    transition: all .2s;
+    font-family: 'Lucida Sans Unicode', 'Arial Unicode MS', Arial;
+}
+
+/* checked mark aspect changes */
+[type="checkbox"]:not(:checked)+label:after {
+    opacity: 0;
+    transform: scale(0);
+}
+
+[type="checkbox"]:checked+label:after {
+    opacity: 1;
+    transform: scale(1);
+}
+
+
+/* hover style just for information */
+label:hover:before {
+    border: 2px solid #4778d9 !important;
+}
+
+
+// Custom Upload
+
+.upload-btn-wrapper {
+    position: relative;
+    overflow: hidden;
+
+    .btn {
+        border: 1px solid rgb(240, 118, 84);
+        color: rgb(240, 118, 84);
+        background-color: white;
+        border-radius: 2px;
+    }
+
+    input[type=file] {
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        opacity: 0;
+        width: 112px;
+    }
+}
+
+.image-preview {
+    position: relative;
+    height: 150px;
+    width: 150px;
+
+    .close {
+        @apply absolute flex justify-center rounded-full text-white items-center h-6 w-6 cursor-pointer text-sm;
+        top: -10px;
+        right: -10px;
+    }
+
+    img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
     }
 }

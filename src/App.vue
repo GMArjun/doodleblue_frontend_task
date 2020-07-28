@@ -5,11 +5,10 @@
         <div class="self-center text-4xl font-bold mr-auto leading-none">Products</div>
         <button
           class="px-12 py-4 rounded mainGradient text-white text-2xl leading-none focus:outline-none"
-          @click="addP = true"
         >Add Product</button>
       </div>
 
-      <P-Controller @productDataBack="handleIncomingProduct" @close="addP = $event" v-if="addP" />
+      <P-Controller title="Add Product" @productDataBack="handleIncomingProduct" />
 
       <div class="flex flex-wrap">
         <div class="w-3/12 px-3"></div>
@@ -30,10 +29,11 @@
                 </div>
 
                 <P-Controller
+                  title="Edit Product"
                   :exist="product"
                   :existIndex="i"
                   @productDataBack="editIncomingProduct"
-                  v-if="editP"
+                  v-if="false"
                 />
               </div>
             </div>
@@ -60,8 +60,6 @@ export default {
             "https://images.unsplash.com/photo-1546015720-b8b30df5aa27?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80",
         },
       ],
-      addP: false,
-      editP: false,
     };
   },
   components: {

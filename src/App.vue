@@ -1,18 +1,45 @@
 <template>
-  <div id="app" class="text-sm">
-    <button class="border p-2 m-2" @click="addP = true">Add Product</button>
-    <P-Controller @productDataBack="handleIncomingProduct" @close="addP = $event" v-if="addP" />
-
-    <div v-for="(product,i) in products" :key="i" class="border m-3 p-3">
-      <div>{{i}}</div>
-      <div>{{product.title}}</div>
-      <div>{{product.category}}</div>
-      <div>{{product.price}}</div>
-      <div>{{product.isTopProduct}}</div>
-      <div v-if="product.image">
-        <img :src="product.image" class="h-10 w-10" alt />
+  <div id="app">
+    <div class="container mx-auto px-3">
+      <div class="flex py-12">
+        <div class="self-center text-4xl font-bold mr-auto leading-none">Products</div>
+        <button
+          class="px-12 py-4 rounded mainGradient text-white text-2xl leading-none focus:outline-none"
+          @click="addP = true"
+        >Add Product</button>
       </div>
-      <P-Controller :exist="product" :existIndex="i" @productDataBack="editIncomingProduct" />
+
+      <P-Controller @productDataBack="handleIncomingProduct" @close="addP = $event" v-if="addP" />
+
+      <div class="flex flex-wrap">
+        <div class="w-3/12 px-3"></div>
+        <div class="w-9/12">
+          <div class="flex flex-wrap products">
+            <div v-for="(product,i) in products" :key="i" class="holder w-4/12">
+              <div class="product m-4 rounded-b-md cursor-pointer">
+                <div class="relative overflow-hidden productImage rounded-t-md h-56">
+                  <img
+                    :src="product.image"
+                    class="w-full h-full object-cover transition ease-in duration-300"
+                    alt
+                  />
+                </div>
+                <div class="px-4 py-6 text-center">
+                  <div class="font-bold text-xl leading-none mb-2">{{product.title}}</div>
+                  <div class="text-sm">${{product.price}}</div>
+                </div>
+
+                <P-Controller
+                  :exist="product"
+                  :existIndex="i"
+                  @productDataBack="editIncomingProduct"
+                  v-if="editP"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -23,8 +50,18 @@ export default {
   name: "App",
   data() {
     return {
-      products: [],
+      products: [
+        {
+          category: "category_1",
+          title: "TShirt",
+          price: 200,
+          isTopProduct: true,
+          image:
+            "https://images.unsplash.com/photo-1546015720-b8b30df5aa27?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80",
+        },
+      ],
       addP: false,
+      editP: false,
     };
   },
   components: {

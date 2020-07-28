@@ -1,11 +1,14 @@
 <template>
-  <div>
-    <div class="uppercase">Categories</div>
-    <div
-      v-for="(category,ci) in cateData"
-      :key="ci"
-      @click="showByCategory(category.Value)"
-    >{{category.Name}}</div>
+  <div class="categories">
+    <div class="uppercase mb-4">Categories</div>
+    <div class="px-8 py-2 bg-grey content rounded">
+      <div v-for="(category,i) in cateData" :key="i" @click="showByCategory(category.Value,i)">
+        <div
+          class="list py-3 cursor-pointer font-bold"
+          :class="{ active: activeIndex === i }"
+        >{{category.Name}}</div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -13,12 +16,15 @@
 export default {
   name: "Categories",
   data() {
-    return {};
+    return {
+      activeIndex: 0,
+    };
   },
   props: ["cateData"],
   methods: {
-    showByCategory(cateValue) {
-      console.log(cateValue);
+    showByCategory(cateValue, i) {
+      this.activeIndex = i;
+      this.$emit("selectedCategory", cateValue);
     },
   },
 };

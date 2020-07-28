@@ -201,3 +201,30 @@ label:hover:before {
         transition: none;
     }
 }
+
+.categories {
+    .content {
+        background-color: #F7F8FA;
+        @apply text-lg;
+        
+        .list{
+            &.active{
+                color:red;
+            }
+        }
+
+        &>div {
+            &:last-child {
+                .list {
+                    border-bottom: 0px;
+                }
+
+            }
+
+        }
+
+        .list {
+            border-bottom: 1px solid#E5E9EA;
+        }
+    }
+}

@@ -12,38 +12,19 @@
       <P-Controller title="Add Product" @productDataBack="handleIncomingProduct" ref="addProd" />
 
       <div class="flex flex-wrap">
-        <div class="w-3/12">
-          <Categories-Tray :cateData="Categories" />
+        <div class="w-3/12 pr-6">
+          <Categories-Tray :cateData="Categories" @selectedCategory="handleSelectedCategory" />
         </div>
 
         <div class="w-9/12">
           <div class="flex flex-wrap products">
-            <div v-for="(product,i) in products" :key="i" class="holder w-4/12">
-              <div
-                class="product m-4 rounded-b-md cursor-pointer"
-                @click="$refs['editProd' + i][0].isModalOpen = true"
-              >
-                <div class="relative overflow-hidden productImage rounded-t-md h-56">
-                  <img
-                    :src="product.image"
-                    class="w-full h-full object-cover transition ease-in duration-300"
-                    alt
-                  />
-                </div>
-                <div class="px-4 py-6 text-center">
-                  <div class="font-bold text-xl leading-none mb-2">{{product.title}}</div>
-                  <div class="text-sm">${{product.price}}</div>
-                </div>
-              </div>
-
-              <P-Controller
-                :ref="'editProd'+i"
-                title="Edit Product"
-                :exist="product"
-                :existIndex="i"
-                @productDataBack="editIncomingProduct"
-              />
-            </div>
+            <Product
+              v-for="(product,i) in products"
+              :key="i"
+              :pData="product"
+              :pIndex="i"
+              @editedData="handleEditedData"
+            />
           </div>
         </div>
       </div>
@@ -54,6 +35,7 @@
 <script>
 import ProductController from "./components/productController";
 import CategoriesTray from "./components/categories";
+import Product from "./components/product";
 
 const Categories = [
   {
@@ -80,18 +62,23 @@ const Categories = [
 
 export default {
   name: "App",
+  components: {
+    "P-Controller": ProductController,
+    "Categories-Tray": CategoriesTray,
+    Product,
+  },
   data() {
     return {
       products: [],
       Categories,
     };
   },
-  components: {
-    "P-Controller": ProductController,
-    "Categories-Tray": CategoriesTray,
-  },
   mounted() {
-    if (localStorage && localStorage["products"].length) {
+    if (
+      localStorage &&
+      localStorage["products"] &&
+      localStorage["products"].length
+    ) {
       this.products = JSON.parse(localStorage["products"]);
     }
   },
@@ -100,9 +87,15 @@ export default {
       this.products.push(params);
       this.setLocalCopy();
     },
-    editIncomingProduct(params) {
+    handleEditedData(params) {
       this.$set(this.products, params.index, params.prodData);
       this.setLocalCopy();
+    },
+    handleSelectedCategory(selected) {
+      let categoryFiltered = this.products.filter(
+        (product) => product.category == selected
+      );
+      this.products = categoryFiltered;
     },
     setLocalCopy() {
       if (localStorage) {

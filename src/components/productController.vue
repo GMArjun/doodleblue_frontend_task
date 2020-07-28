@@ -1,6 +1,6 @@
 <template>
-  <div class="border m-10">
-    <div class="p-3">
+  <div class="border m-3">
+    <div class="p-3 text-sm">
       <div>
         <label class="block">Product Category</label>
         <select class="border m-2" v-model="selectedCategory">
@@ -27,19 +27,20 @@
         <input type="file" @change="selectedImage" accept="image/*" />
 
         <div class="image-preview" v-if="imageData.length > 0">
-          <img class="preview" :src="imageData" />
+          <img class="preview h-10 w-10" :src="imageData" />
         </div>
       </div>
     </div>
     <div class="flex p-3">
-      <button @click="addProduct" class="border p-3">Save</button>
+      <button @click="closeModal" class="border p-2 mr-2 text-sm">Cancel</button>
+      <button @click="saveProduct" class="border p-2 text-sm">Save</button>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "AddProduct",
+  name: "ProductController",
   data() {
     return {
       selectedCategory: "",
@@ -48,6 +49,16 @@ export default {
       isTopProduct: false,
       imageData: "",
     };
+  },
+  props: ["exist", "existIndex"],
+  mounted() {
+    if (this.exist) {
+      this.selectedCategory = this.exist.category;
+      this.productTitle = this.exist.title;
+      this.productPrice = this.exist.price;
+      this.isTopProduct = this.exist.isTopProduct;
+      this.imageData = this.exist.image;
+    }
   },
   methods: {
     selectedImage: function (event) {
@@ -60,14 +71,35 @@ export default {
         this.imageData = "";
       }
     },
-    addProduct() {
-      this.$emit("addedProduct", {
-        category: this.selectedCategory,
-        title: this.productTitle,
-        price: this.productPrice,
-        isTopProduct: this.isTopProduct,
-        image: this.imageData,
-      });
+    saveProduct() {
+      if (
+        this.selectedCategory &&
+        this.productTitle &&
+        this.productPrice &&
+        this.isTopProduct != undefined &&
+        this.imageData
+      ) {
+        const ProductData = {
+          category: this.selectedCategory,
+          title: this.productTitle,
+          price: this.productPrice,
+          isTopProduct: this.isTopProduct,
+          image: this.imageData,
+        };
+        if (this.existIndex != undefined) {
+          this.$emit("productDataBack", {
+            prodData: ProductData,
+            index: this.existIndex,
+          });
+        } else {
+          this.$emit("productDataBack", ProductData);
+        }
+      } else {
+        console.log("Fill ALl Fields");
+      }
+    },
+    closeModal() {
+      this.$emit("close", false);
     },
   },
 };

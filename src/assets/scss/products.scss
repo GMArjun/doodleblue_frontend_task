@@ -173,3 +173,31 @@ label:hover:before {
         object-fit: cover;
     }
 }
+
+.top-enter-active,
+.top-leave-active {
+    transition: 0.3s;
+}
+
+.top-enter,
+.top-leave-to {
+    opacity: 0;
+    transform: translate3d(0, -10px, 0);
+}
+
+.top-move {
+    opacity: 0.3;
+    transition: 0.3s;
+}
+
+@media screen and (prefers-reduced-motion: reduce) {
+
+    .top-enter-active,
+    .top-leave-active {
+        transition: none;
+    }
+
+    .top-move {
+        transition: none;
+    }
+}

@@ -1,76 +1,81 @@
 <template>
-  <div class="modal">
-    <div class="modal-wrapper">
-      <div class="modal-center">
-        <div class="modal-container px-5">
-          <div class="modal-content rounded-lg">
-            <div class="modal-close mainGradient">x</div>
-            <div class="px-20 py-10">
-              <h1 class="text-center font-bold text-4xl">{{title}}</h1>
-              <div class="pt-16 pb-8">
-                <div class="mb-6">
-                  <label class="block text-xl mb-2">Product Category</label>
-                  <select class="border w-full p-4" v-model="selectedCategory">
-                    <option value disabled>Select</option>
-                    <option value="category_1">Cat 1</option>
-                    <option value="category_2">Cat 2</option>
-                    <option value="category_3">Cat 3</option>
-                  </select>
-                </div>
-                <div class="mb-6">
-                  <label class="block text-xl mb-2">Product Title</label>
-                  <input
-                    type="text"
-                    class="border w-full p-4"
-                    placeholder="Enter product title"
-                    v-model="productTitle"
-                  />
-                </div>
-                <div class="mb-6">
-                  <label class="block text-xl mb-2">Price</label>
-                  <input
-                    type="text"
-                    class="border w-full p-4"
-                    placeholder="Enter product price"
-                    v-model="productPrice"
-                  />
-                </div>
-                <div class="mb-6">
-                  <input type="checkbox" id="topProducts" v-model="isTopProduct" />
-                  <label for="topProducts" class="text-xl">Top Products</label>
-                </div>
-                <div>
-                  <label class="block text-xl mb-3">Upload Product Image</label>
-                  <div class="image-preview border" v-if="imageData.length">
-                    <div class="close mainGradient" @click="imageData = ''">x</div>
-                    <img class="preview" :src="imageData" />
+  <transition name="top">
+    <div class="modal" v-if="isModalOpen">
+      <div class="modal-wrapper">
+        <div class="modal-center">
+          <div class="modal-container px-5">
+            <div class="modal-content rounded-lg">
+              <div class="modal-close mainGradient" @click="isModalOpen = false">x</div>
+              <div class="px-20 py-10">
+                <h1 class="text-center font-bold text-4xl">{{title}}</h1>
+                <div class="pt-16 pb-8">
+                  <div class="mb-6">
+                    <label class="block text-xl mb-2">Product Category</label>
+                    <select class="border w-full p-4" v-model="selectedCategory">
+                      <option value disabled>Select</option>
+                      <option value="category_1">Cat 1</option>
+                      <option value="category_2">Cat 2</option>
+                      <option value="category_3">Cat 3</option>
+                    </select>
                   </div>
-                  <div class="upload-btn-wrapper mb-6" v-else>
-                    <button class="btn p-2 px-8 text-sm rounded">Upload</button>
+                  <div class="mb-6">
+                    <label class="block text-xl mb-2">Product Title</label>
                     <input
-                      type="file"
-                      name="myfile"
-                      class="cursor-pointer"
-                      @change="selectedImage"
-                      accept="image/*"
+                      type="text"
+                      class="border w-full p-4"
+                      placeholder="Enter product title"
+                      v-model="productTitle"
                     />
                   </div>
+                  <div class="mb-6">
+                    <label class="block text-xl mb-2">Price</label>
+                    <input
+                      type="text"
+                      class="border w-full p-4"
+                      placeholder="Enter product price"
+                      v-model="productPrice"
+                    />
+                  </div>
+                  <div class="mb-6">
+                    <input type="checkbox" id="topProducts" v-model="isTopProduct" />
+                    <label for="topProducts" class="text-xl">Top Products</label>
+                  </div>
+                  <div>
+                    <label class="block text-xl mb-3">Upload Product Image</label>
+                    <div class="image-preview border" v-if="imageData.length">
+                      <div class="close mainGradient" @click="imageData = ''">x</div>
+                      <img class="preview" :src="imageData" />
+                    </div>
+                    <div class="upload-btn-wrapper mb-6" v-else>
+                      <button class="btn p-2 px-8 text-sm rounded">Upload</button>
+                      <input
+                        type="file"
+                        name="myfile"
+                        class="cursor-pointer"
+                        @change="selectedImage"
+                        accept="image/*"
+                      />
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <hr class="py-6" />
-              <div class="flex justify-center">
-                <button class="bg-black text-white p-2 px-8 w-40 mr-8 rounded uppercase">Cancel</button>
-                <button
-                  @click="saveProduct"
-                  class="p-2 px-8 w-40 mainGradient text-white rounded border-none uppercase"
-                >Save</button>
+                <hr class="py-6" />
+                <div class="flex justify-center">
+                  <button
+                    class="bg-black text-white p-2 px-8 w-40 mr-8 rounded uppercase"
+                    @click="isModalOpen = false"
+                  >Cancel</button>
+                  <button
+                    @click="saveProduct"
+                    class="p-2 px-8 w-40 mainGradient text-white rounded border-none uppercase"
+                  >Save</button>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script>
@@ -83,6 +88,7 @@ export default {
       productPrice: "",
       isTopProduct: false,
       imageData: "",
+      isModalOpen: false,
     };
   },
   props: ["exist", "existIndex", "title"],

@@ -35,8 +35,7 @@ export default {
       this.products.push(params);
     },
     editIncomingProduct(params) {
-      this.products[params.index] = params.prodData;
-      console.log(this.products[params.index]);
+      this.$set(this.products, params.index, params.prodData);
     },
   },
 };

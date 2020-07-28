@@ -29,6 +29,15 @@
                     />
                   </div>
                   <div class="mb-6">
+                    <label class="block text-xl mb-2">Original Price</label>
+                    <input
+                      type="text"
+                      class="border w-full p-4"
+                      placeholder="Enter original price"
+                      v-model="orgPrice"
+                    />
+                  </div>
+                  <div class="mb-6">
                     <label class="block text-xl mb-2">Price</label>
                     <input
                       type="text"
@@ -86,6 +95,7 @@ export default {
     return {
       selectedCategory: "",
       productTitle: "",
+      orgPrice: "",
       productPrice: "",
       isTopProduct: false,
       imageData: "",
@@ -97,6 +107,7 @@ export default {
     if (this.exist) {
       this.selectedCategory = this.exist.category;
       this.productTitle = this.exist.title;
+      this.orgPrice = this.exist.originalPrice;
       this.productPrice = this.exist.price;
       this.isTopProduct = this.exist.isTopProduct;
       this.imageData = this.exist.image;
@@ -124,6 +135,7 @@ export default {
         const ProductData = {
           category: this.selectedCategory,
           title: this.productTitle,
+          originalPrice: this.orgPrice,
           price: this.productPrice,
           isTopProduct: this.isTopProduct,
           image: this.imageData,

@@ -6,7 +6,10 @@
       </div>
       <div class="px-4 py-6 text-center">
         <div class="font-bold text-xl leading-none mb-2">{{pData.title}}</div>
-        <div class="text-sm">${{pData.price}}</div>
+        <div class="text-sm flex justify-center">
+          <span v-if="pData.originalPrice" class="mr-2 originalPrice">${{pData.originalPrice}}</span>
+          <span>${{pData.price}}</span>
+        </div>
       </div>
     </div>
     <P-Controller

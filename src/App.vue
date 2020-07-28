@@ -2,10 +2,10 @@
   <div id="app">
     <div class="container mx-auto px-3">
       <div class="flex py-12">
-        <div class="self-center text-4xl font-bold mr-auto leading-none">Products</div>
+        <div class="self-center text-4xl font-medium mr-auto leading-none">Products</div>
         <button
           @click="modalVisible = true"
-          class="px-12 py-4 rounded mainGradient text-white text-2xl leading-none focus:outline-none"
+          class="px-12 py-4 rounded mainGradient text-white font-light text-2xl leading-none focus:outline-none"
         >Add Product</button>
       </div>
 
@@ -92,31 +92,26 @@ export default {
   watch: {
     products: function (newVal) {
       this.productsClone = JSON.parse(JSON.stringify(newVal));
+      localStorage
+        ? localStorage.setItem("products", JSON.stringify(newVal))
+        : "";
     },
   },
   methods: {
     handleIncomingProduct(params) {
       this.products.push(params);
-      this.setLocalCopy();
     },
     handleEditedData(params) {
       this.$set(this.products, params.index, params.prodData);
-      this.setLocalCopy();
     },
     handleSelectedCategory(selected) {
       let categoryFiltered = this.products.filter(
         (product) => product.category == selected
       );
-      if (selected === "Cate_0") {
-        this.productsClone = JSON.parse(JSON.stringify(this.products));
-      } else {
-        this.productsClone = categoryFiltered;
-      }
-    },
-    setLocalCopy() {
-      if (localStorage) {
-        localStorage.setItem("products", JSON.stringify(this.products));
-      }
+      this.productsClone =
+        selected === "Cate_0"
+          ? JSON.parse(JSON.stringify(this.products))
+          : categoryFiltered;
     },
   },
 };

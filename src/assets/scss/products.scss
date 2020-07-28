@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
+
+body{
+    font-family: 'Roboto', sans-serif;
+}
+
 .mainGradient {
     background: rgb(240, 118, 84);
     background: linear-gradient(90deg, rgba(240, 118, 84, 1) 20%, rgba(237, 64, 88, 1) 100%);
@@ -16,8 +22,6 @@
         }
     }
 }
-
-
 
 
 .modal {
@@ -66,8 +70,6 @@
         }
     }
 }
-
-
 
 
 // Custom Checkbox
@@ -206,10 +208,10 @@ label:hover:before {
     .content {
         background-color: #F7F8FA;
         @apply text-lg;
-        
-        .list{
-            &.active{
-                color:red;
+
+        .list {
+            &.active {
+                color: red;
             }
         }
 

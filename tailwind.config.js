@@ -9,7 +9,8 @@ module.exports = {
       grey: "var(--grey)",
       greyish: "var(--greyish)",
       ink_blue: "var(--ink-blue)",
-      gray: "var(--gray)"
+      gray: "var(--gray)",
+      yellow: "var(--yellow)"
     }
   },
   variants: {},

@@ -5,7 +5,9 @@
         <div class="modal-center">
           <div class="modal-container px-5">
             <div class="modal-content rounded-lg">
-              <div class="modal-close" @click="closeModal"> <span class="closeI"></span>  </div>
+              <div class="modal-close" @click="closeModal">
+                <span class="closeI"></span>
+              </div>
               <div class="px-20 py-10">
                 <h1 class="text-center font-medium text-4xl font-roboto">{{title}}</h1>
                 <div class="pt-16 pb-8 font-mons">
@@ -38,7 +40,7 @@
                     />
                   </div>
                   <div class="mb-6">
-                    <label class="block text-lg mb-2">Price</label>
+                    <label class="block text-lg mb-2">Sales Price</label>
                     <input
                       type="text"
                       class="border w-full p-4"
@@ -46,13 +48,109 @@
                       v-model="productPrice"
                     />
                   </div>
+
+                  <div class="mb-6">
+                    <label class="block text-lg mb-2">Product Rating</label>
+                    <div id="full-stars">
+                      <div class="rating-group">
+                        <input
+                          class="rating__input rating__input--none"
+                          name="rating"
+                          id="rating-none"
+                          value="0"
+                          type="radio"
+                          v-model="ratingValue"
+                        />
+                        <label aria-label="No rating" class="rating__label" for="rating-none">
+                          <font-awesome-icon
+                            :icon="['fa', 'ban']"
+                            class="rating__icon rating__icon--none fa fa-ban"
+                          />
+                        </label>
+                        <label aria-label="1 star" class="rating__label" for="rating-1">
+                          <font-awesome-icon
+                            :icon="['fa', 'star']"
+                            class="rating__icon rating__icon--star"
+                          />
+                        </label>
+                        <input
+                          class="rating__input"
+                          name="rating"
+                          id="rating-1"
+                          value="1"
+                          type="radio"
+                          v-model="ratingValue"
+                        />
+                        <label aria-label="2 stars" class="rating__label" for="rating-2">
+                          <font-awesome-icon
+                            :icon="['fa', 'star']"
+                            class="rating__icon rating__icon--star"
+                          />
+                        </label>
+                        <input
+                          class="rating__input"
+                          name="rating"
+                          id="rating-2"
+                          value="2"
+                          type="radio"
+                          v-model="ratingValue"
+                        />
+                        <label aria-label="3 stars" class="rating__label" for="rating-3">
+                          <font-awesome-icon
+                            :icon="['fa', 'star']"
+                            class="rating__icon rating__icon--star"
+                          />
+                        </label>
+                        <input
+                          class="rating__input"
+                          name="rating"
+                          id="rating-3"
+                          value="3"
+                          type="radio"
+                          v-model="ratingValue"
+                        />
+                        <label aria-label="4 stars" class="rating__label" for="rating-4">
+                          <font-awesome-icon
+                            :icon="['fa', 'star']"
+                            class="rating__icon rating__icon--star"
+                          />
+                        </label>
+                        <input
+                          class="rating__input"
+                          name="rating"
+                          id="rating-4"
+                          value="4"
+                          type="radio"
+                          v-model="ratingValue"
+                        />
+                        <label aria-label="5 stars" class="rating__label" for="rating-5">
+                          <font-awesome-icon
+                            :icon="['fa', 'star']"
+                            class="rating__icon rating__icon--star"
+                          />
+                        </label>
+                        <input
+                          class="rating__input"
+                          name="rating"
+                          id="rating-5"
+                          value="5"
+                          type="radio"
+                          v-model="ratingValue"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
                   <div class="mb-6">
                     <input type="checkbox" id="topProducts" v-model="isTopProduct" />
                     <label for="topProducts" class="text-lg">Top Products</label>
                   </div>
+
                   <div>
                     <div class="image-preview border border-greyish" v-if="imageData.length">
-                      <div class="close" @click="imageData = ''"> <span class="closeI"></span> </div>
+                      <div class="close" @click="imageData = ''">
+                        <span class="closeI"></span>
+                      </div>
                       <img class="preview" :src="imageData" />
                     </div>
                     <div v-else>
@@ -100,6 +198,7 @@ export default {
       orgPrice: "",
       productPrice: "",
       isTopProduct: false,
+      ratingValue: 0,
       imageData: "",
       isModalOpen: true,
     };
@@ -111,6 +210,7 @@ export default {
       this.productTitle = this.exist.title;
       this.orgPrice = this.exist.originalPrice;
       this.productPrice = this.exist.price;
+      this.ratingValue = this.exist.rating;
       this.isTopProduct = this.exist.isTopProduct;
       this.imageData = this.exist.image;
     }
@@ -139,6 +239,7 @@ export default {
           title: this.productTitle,
           originalPrice: this.orgPrice,
           price: this.productPrice,
+          rating: parseInt(this.ratingValue),
           isTopProduct: this.isTopProduct,
           image: this.imageData,
         };

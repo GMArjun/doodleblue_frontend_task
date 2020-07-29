@@ -6,7 +6,15 @@
         <img :src="product.image" class="h-20 w-20 object-cover rounded mr-3" />
         <div class="overflow-hidden">
           <div class="text-lg font-medium truncate">{{product.title}}</div>
-          <div>{{product.price}}</div>
+          <div v-if="product.rating" class="text-xs mb-2 text-yellow">
+            <font-awesome-icon
+              v-for="(rating) in product.rating"
+              :key="rating"
+              :icon="['fa', 'star']"
+              class="rating__icon rating__icon--none fa fa-star mr-1"
+            />
+          </div>
+          <div class="text-sm">${{product.price}}</div>
         </div>
       </div>
     </div>

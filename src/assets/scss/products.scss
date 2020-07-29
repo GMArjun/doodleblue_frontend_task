@@ -349,7 +349,7 @@ label:hover:before {
     }
 
     .rating__icon--star {
-        color: #F5AE42;
+        color: var(--yellow);
     }
 
     .rating__icon--none {
@@ -365,7 +365,7 @@ label:hover:before {
     }
 
     .rating-group:hover .rating__label .rating__icon--star {
-        color: #F5AE42;
+        color: var(--yellow);
     }
 
     .rating__input:hover~.rating__label .rating__icon--star {
@@ -405,4 +405,27 @@ label:hover:before {
         @apply bg-grey border-greyish self-stretch flex justify-center items-center w-16;
     }
 
+}
+
+.vue-slider {
+    height: 8px !important;
+    padding: 10px !important;
+
+    .vue-slider-rail {
+        background-color: #EAF0F5;
+
+        .vue-slider-process {
+            background-color: #EAF0F5;
+        }
+
+        .vue-slider-dot {
+            height: 20px !important;
+            width: 20px !important;
+
+            .vue-slider-dot-handle {
+                background-color: var(--greyish);
+                box-shadow: none !important;
+            }
+        }
+    }
 }

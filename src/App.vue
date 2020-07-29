@@ -2,7 +2,9 @@
   <div id="app">
     <div class="max-w-screen-xl mx-auto px-6 xl:px-0">
       <div class="flex py-8 sm:py-12">
-        <div class="self-center text-3xl sm:text-4xl font-medium mr-auto leading-none text-black">Products</div>
+        <div
+          class="self-center text-3xl sm:text-4xl font-medium mr-auto leading-none text-black"
+        >Products</div>
         <button
           @click="modalVisible = true"
           class="px-4 sm:px-12 py-3 sm:py-4 rounded mainGradient text-white font-light text-base sm:text-2xl leading-none focus:outline-none"
@@ -17,8 +19,9 @@
       />
 
       <div class="flex flex-wrap">
-        <div class="w-3/12 pr-6">
+        <div class="w-3/12 pr-5">
           <Categories-Tray :cateData="Categories" @selectedCategory="handleSelectedCategory" />
+          <PriceFilter :productsData="products" v-if="products && products.length" class="my-10" />
           <TopProducts class="my-10" :productsData="products" v-if="products && products.length" />
         </div>
 
@@ -43,6 +46,7 @@ import ProductController from "./components/productController";
 import CategoriesTray from "./components/categories";
 import Product from "./components/product";
 import TopProducts from "./components/topProducts";
+import PriceFilter from "./components/priceFilter";
 
 const Categories = [
   {
@@ -74,6 +78,7 @@ export default {
     "Categories-Tray": CategoriesTray,
     Product,
     TopProducts,
+    PriceFilter,
   },
   data() {
     return {

@@ -9,7 +9,6 @@
         <option value disabled>Sortby</option>
         <option value="hl">High to Low</option>
         <option value="lh">Low to High</option>
-        <option value="nf">Newest First</option>
       </select>
       <span class="border border-l-0">
         <font-awesome-icon :icon="['fa', 'chevron-down']" class="text-gray" />

@@ -93,10 +93,24 @@ export default {
     return {
       products: [],
       currentCategory: "Cate_0",
-      sortBy: "nf",
+      sortBy: null,
       Categories,
       modalVisible: false,
     };
+  },
+  watch: {
+    sortBy: function (newVal) {
+      switch (newVal) {
+        case "lh":
+          this.products.sort((a, b) => a.price - b.price);
+          break;
+        case "hl":
+          this.products.sort((a, b) => b.price - a.price);
+          break;
+        default:
+          break;
+      }
+    },
   },
   mounted() {
     if (
@@ -124,27 +138,11 @@ export default {
   },
   computed: {
     cProducts() {
-      let prodsData =
-        this.currentCategory === "Cate_0"
-          ? JSON.parse(JSON.stringify(this.products))
-          : this.products.filter(
-              (product) => product.category == this.currentCategory
-            );
-      let sorted;
-      switch (this.sortBy) {
-        case "lh":
-          sorted = prodsData.sort((a, b) => a.price - b.price);
-          break;
-        case "hl":
-          sorted = prodsData.sort((a, b) => b.price - a.price);
-          break;
-        case "nf":
-          sorted = prodsData.reverse();
-          break;
-        default:
-          break;
-      }
-      return sorted;
+      return this.currentCategory === "Cate_0"
+        ? JSON.parse(JSON.stringify(this.products))
+        : this.products.filter(
+            (product) => product.category == this.currentCategory
+          );
     },
   },
 };

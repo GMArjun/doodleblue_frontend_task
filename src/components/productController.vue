@@ -19,12 +19,15 @@
               </div>
 
               <div class="px-6 sm:px-20 py-8 sm:py-10" v-else>
-                <h1 class="text-center font-medium text-4xl font-roboto">{{title}}</h1>
+                <h1 class="text-center font-medium text-3xl sm:text-4xl font-roboto">{{title}}</h1>
                 <div class="pt-6 sm:pt-16 pb-8 font-mons">
                   <div class="mb-6" :class="{ 'hasError': $v.selectedCategory.$error }">
                     <label class="block text-lg mb-2">Product Category</label>
                     <div class="flex customSelect">
-                      <select class="border w-full p-3 sm:p-4 border-r-0" v-model="selectedCategory">
+                      <select
+                        class="border w-full p-3 sm:p-4 border-r-0"
+                        v-model="selectedCategory"
+                      >
                         <option value disabled>Select</option>
                         <option value="Cate_1">Books</option>
                         <option value="Cate_2">Dress</option>
@@ -207,12 +210,12 @@
                 <hr class="py-3 sm:py-6 border-greyish" />
                 <div class="flex justify-center">
                   <button
-                    class="bg-greyish font-mons p-3 px-8 w-40 mr-8 rounded uppercase focus:outline-none"
+                    class="bg-greyish font-mons p-3 px-6 sm:px-8 w-40 mr-3 sm:mr-8 rounded uppercase focus:outline-none"
                     @click="closeModal"
                   >Cancel</button>
                   <button
                     @click="saveProduct"
-                    class="p-3 px-8 w-40 font-mons mainGradient text-white rounded border-none uppercase focus:outline-none"
+                    class="p-3 px-6 sm:px-8 w-40 font-mons mainGradient text-white rounded border-none uppercase focus:outline-none"
                   >Save</button>
                 </div>
               </div>
@@ -279,9 +282,6 @@ export default {
         isTopProduct: this.isTopProduct,
         image: this.imageData,
       };
-      console.log(this.$v);
-      console.log(ProductData);
-
       if (!this.checkValid()) {
         if (this.existIndex != undefined) {
           this.$emit("productDataBack", {
@@ -292,8 +292,6 @@ export default {
           this.$emit("productDataBack", ProductData);
         }
         this.isDone = true;
-      } else {
-        console.log("Not Submit");
       }
     },
     closeModal() {

@@ -7,8 +7,8 @@
       <div class="px-4 py-8 text-center">
         <div class="font-bold text-xl leading-none mb-2 truncate">{{pData.title}}</div>
         <div class="text-sm flex justify-center">
-          <span v-if="pData.originalPrice" class="mr-2 line-through text-gray">${{pData.originalPrice}}</span>
-          <span>${{pData.price}}</span>
+          <span v-if="pData.originalPrice" class="mr-2 line-through text-gray">${{(pData.originalPrice).toFixed(2)}}</span>
+          <span>${{(pData.price).toFixed(2)}}</span>
         </div>
       </div>
     </div>

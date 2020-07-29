@@ -17,7 +17,7 @@
               class="rating__icon rating__icon--none fa fa-star mr-1"
             />
           </div>
-          <div class="text-sm">${{product.price}}</div>
+          <div class="text-sm">${{(product.price).toFixed(2)}}</div>
         </div>
       </div>
     </div>

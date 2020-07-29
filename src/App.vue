@@ -27,7 +27,7 @@
             <SortBy :productsData="cProducts" @selectedSort="sortBy = $event" />
           </div>
 
-          <div class="flex flex-wrap products">
+          <div class="flex flex-wrap products" v-if="cProducts && cProducts.length">
             <Product
               v-for="(product,i) in cProducts"
               :key="i"
@@ -35,6 +35,10 @@
               :pIndex="i"
               @editedData="handleEditedData"
             />
+          </div>
+          <div v-else class="flex flex-col justify-center items-center p-10 py-20">
+            <img src="./assets/images/empty.png" class="max-w-full flex-shrink-0" alt />
+            <div class="text-xl sm:text-4xl text-center text-gray mt-2">No Products Available</div>
           </div>
         </div>
       </div>

@@ -10,22 +10,23 @@
           class="px-4 sm:px-12 py-3 sm:py-4 rounded mainGradient text-white font-light text-base sm:text-2xl leading-none focus:outline-none"
         >Add Product</button>
       </div>
-
-      <P-Controller
-        title="Add Product"
-        @productDataBack="handleIncomingProduct"
-        @closeModal="modalVisible = $event"
-        v-if="modalVisible"
-      />
-
       <div class="flex flex-wrap">
         <div class="w-3/12 pr-5">
-          <Categories-Tray :cateData="Categories" @selectedCategory="currentCategory = $event" />
+          <Categories-Tray
+            :cateData="Categories"
+            @selectedCategory="currentCategory = $event"
+            class="my-6"
+          />
           <PriceFilter :productsData="products" v-if="products && products.length" class="my-10" />
           <TopProducts class="my-10" :productsData="products" v-if="products && products.length" />
         </div>
 
         <div class="w-9/12">
+          <div class="flex px-4 py-3">
+            <div class="mr-auto self-center text-gray">Showing 1 - 8 of 9 Results</div>
+            <SortBy :productsData="cProducts" @selectedSort="sortBy = $event" />
+          </div>
+
           <div class="flex flex-wrap products">
             <Product
               v-for="(product,i) in cProducts"
@@ -38,6 +39,12 @@
         </div>
       </div>
     </div>
+    <P-Controller
+      title="Add Product"
+      @productDataBack="handleIncomingProduct"
+      @closeModal="modalVisible = $event"
+      v-if="modalVisible"
+    />
   </div>
 </template>
 
@@ -47,6 +54,7 @@ import CategoriesTray from "./components/categories";
 import Product from "./components/product";
 import TopProducts from "./components/topProducts";
 import PriceFilter from "./components/priceFilter";
+import SortBy from "./components/sortBy";
 
 const Categories = [
   {
@@ -79,11 +87,13 @@ export default {
     Product,
     TopProducts,
     PriceFilter,
+    SortBy,
   },
   data() {
     return {
       products: [],
       currentCategory: "Cate_0",
+      sortBy: "nf",
       Categories,
       modalVisible: false,
     };
@@ -97,28 +107,44 @@ export default {
       this.products = JSON.parse(localStorage["products"]);
     }
   },
-  watch: {
-    products: function (newVal) {
-      localStorage
-        ? localStorage.setItem("products", JSON.stringify(newVal))
-        : "";
-    },
-  },
   methods: {
     handleIncomingProduct(params) {
       this.products.push(params);
+      this.setLocal();
     },
     handleEditedData(params) {
       this.$set(this.products, params.index, params.prodData);
+      this.setLocal();
+    },
+    setLocal() {
+      localStorage
+        ? localStorage.setItem("products", JSON.stringify(this.products))
+        : "";
     },
   },
   computed: {
     cProducts() {
-      return this.currentCategory === "Cate_0"
-        ? this.products
-        : this.products.filter(
-            (product) => product.category == this.currentCategory
-          );
+      let prodsData =
+        this.currentCategory === "Cate_0"
+          ? JSON.parse(JSON.stringify(this.products))
+          : this.products.filter(
+              (product) => product.category == this.currentCategory
+            );
+      let sorted;
+      switch (this.sortBy) {
+        case "lh":
+          sorted = prodsData.sort((a, b) => a.price - b.price);
+          break;
+        case "hl":
+          sorted = prodsData.sort((a, b) => b.price - a.price);
+          break;
+        case "nf":
+          sorted = prodsData.reverse();
+          break;
+        default:
+          break;
+      }
+      return sorted;
     },
   },
 };

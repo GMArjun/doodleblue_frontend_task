@@ -276,7 +276,7 @@ export default {
       const ProductData = {
         category: this.selectedCategory,
         title: this.productTitle,
-        originalPrice: parseFloat(this.orgPrice),
+        originalPrice: this.orgPrice ? parseFloat(this.orgPrice) : "",
         price: parseFloat(this.productPrice),
         rating: parseInt(this.ratingValue),
         isTopProduct: this.isTopProduct,

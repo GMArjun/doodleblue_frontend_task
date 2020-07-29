@@ -52,6 +52,7 @@ input[type='number'],
 select {
     @apply bg-grey border-greyish;
     outline: none !important;
+    -webkit-appearance: none;
 
     &::placeholder {
         @apply font-light text-gray;
@@ -386,4 +387,22 @@ label:hover:before {
     select {
         border: 1px solid var(--red);
     }
+
+    select {
+        @apply border-r-0
+    }
+
+    .customSelect {
+        span {
+            border: 1px solid var(--red);
+            @apply border-l-0
+        }
+    }
+}
+
+.customSelect {
+    span {
+        @apply bg-grey border-greyish self-stretch flex justify-center items-center w-16;
+    }
+
 }

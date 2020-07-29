@@ -1,11 +1,11 @@
 <template>
   <div id="app">
     <div class="max-w-screen-xl mx-auto px-6 xl:px-0">
-      <div class="flex py-12">
-        <div class="self-center text-4xl font-medium mr-auto leading-none text-black">Products</div>
+      <div class="flex py-8 sm:py-12">
+        <div class="self-center text-3xl sm:text-4xl font-medium mr-auto leading-none text-black">Products</div>
         <button
           @click="modalVisible = true"
-          class="px-12 py-4 rounded mainGradient text-white font-light text-2xl leading-none focus:outline-none"
+          class="px-4 sm:px-12 py-3 sm:py-4 rounded mainGradient text-white font-light text-base sm:text-2xl leading-none focus:outline-none"
         >Add Product</button>
       </div>
 

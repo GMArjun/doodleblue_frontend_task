@@ -11,7 +11,8 @@ module.exports = {
       ink_blue: "var(--ink-blue)",
       gray: "var(--gray)",
       yellow: "var(--yellow)",
-      green: "var(--green)"
+      green: "var(--green)",
+      red: "var(--red)"
     }
   },
   variants: {},

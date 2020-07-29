@@ -21,7 +21,7 @@
               <div class="px-20 py-10" v-else>
                 <h1 class="text-center font-medium text-4xl font-roboto">{{title}}</h1>
                 <div class="pt-16 pb-8 font-mons">
-                  <div class="mb-6">
+                  <div class="mb-6" :class="{ 'hasError': $v.selectedCategory.$error }">
                     <label class="block text-lg mb-2">Product Category</label>
                     <select class="border w-full p-4" v-model="selectedCategory">
                       <option value disabled>Select</option>
@@ -30,8 +30,9 @@
                       <option value="Cate_3">Bags</option>
                       <option value="Cate_4">Mobiles</option>
                     </select>
+                    <div v-if="$v.selectedCategory.$error" class="text-sm text-red mt-2 text-right font-roboto">Product Category is Required *</div>
                   </div>
-                  <div class="mb-6">
+                  <div class="mb-6" :class="{ 'hasError': $v.productTitle.$error }">
                     <label class="block text-lg mb-2">Product Title</label>
                     <input
                       type="text"
@@ -39,6 +40,7 @@
                       placeholder="Enter product title"
                       v-model="productTitle"
                     />
+                    <div v-if="$v.productTitle.$error" class="text-sm text-red mt-2 text-right font-roboto">Product Title is Required *</div>
                   </div>
                   <div class="mb-6">
                     <label class="block text-lg mb-2">Original Price</label>
@@ -49,7 +51,7 @@
                       v-model="orgPrice"
                     />
                   </div>
-                  <div class="mb-6">
+                  <div class="mb-6" :class="{ 'hasError': $v.productPrice.$error }">
                     <label class="block text-lg mb-2">Sales Price</label>
                     <input
                       type="number"
@@ -57,6 +59,7 @@
                       placeholder="Enter product price"
                       v-model="productPrice"
                     />
+                    <div v-if="$v.productPrice.$error" class="text-sm text-red mt-2 text-right font-roboto">Product Price is Required *</div>
                   </div>
 
                   <div class="mb-6">
@@ -165,8 +168,8 @@
                     </div>
                     <div v-else>
                       <label class="block text-lg mb-3">Upload Product Image</label>
-                      <div class="upload-btn-wrapper mb-6">
-                        <button class="btn p-2 px-8 text-sm rounded">Upload</button>
+                      <div class="upload-btn-wrapper inline">
+                        <button class="btn focus:outline-none p-2 px-8 text-sm rounded">Upload</button>
                         <input
                           type="file"
                           name="myfile"
@@ -175,18 +178,19 @@
                           accept="image/*"
                         />
                       </div>
+                       <div v-if="$v.imageData.$error" class="text-sm text-red mt-2 font-roboto">Product Image is Required *</div>
                     </div>
                   </div>
                 </div>
                 <hr class="py-6 border-greyish" />
                 <div class="flex justify-center">
                   <button
-                    class="bg-greyish font-mons p-2 px-8 w-40 mr-8 rounded uppercase focus:outline-none"
+                    class="bg-greyish font-mons p-3 px-8 w-40 mr-8 rounded uppercase focus:outline-none"
                     @click="closeModal"
                   >Cancel</button>
                   <button
                     @click="saveProduct"
-                    class="p-2 px-8 w-40 font-mons mainGradient text-white rounded border-none uppercase focus:outline-none"
+                    class="p-3 px-8 w-40 font-mons mainGradient text-white rounded border-none uppercase focus:outline-none"
                   >Save</button>
                 </div>
               </div>
@@ -199,6 +203,8 @@
 </template>
 
 <script>
+import { required, decimal } from "vuelidate/lib/validators";
+
 export default {
   name: "ProductController",
   data() {
@@ -237,23 +243,24 @@ export default {
         this.imageData = "";
       }
     },
+    checkValid() {
+      this.$v.$touch();
+      return this.$v.$anyError;
+    },
     saveProduct() {
-      if (
-        this.selectedCategory &&
-        this.productTitle &&
-        this.productPrice &&
-        this.isTopProduct != undefined &&
-        this.imageData
-      ) {
-        const ProductData = {
-          category: this.selectedCategory,
-          title: this.productTitle,
-          originalPrice: this.orgPrice,
-          price: this.productPrice,
-          rating: parseInt(this.ratingValue),
-          isTopProduct: this.isTopProduct,
-          image: this.imageData,
-        };
+      const ProductData = {
+        category: this.selectedCategory,
+        title: this.productTitle,
+        originalPrice: parseFloat(this.orgPrice),
+        price: parseFloat(this.productPrice),
+        rating: parseInt(this.ratingValue),
+        isTopProduct: this.isTopProduct,
+        image: this.imageData,
+      };
+      console.log(this.$v);
+      console.log(ProductData);
+
+      if (!this.checkValid()) {
         if (this.existIndex != undefined) {
           this.$emit("productDataBack", {
             prodData: ProductData,
@@ -262,14 +269,28 @@ export default {
         } else {
           this.$emit("productDataBack", ProductData);
         }
-
         this.isDone = true;
       } else {
-        console.log("Fill ALl Fields");
+        console.log("Not Submit");
       }
     },
     closeModal() {
       this.$emit("closeModal", false);
+    },
+  },
+  validations: {
+    productTitle: {
+      required,
+    },
+    selectedCategory: {
+      required,
+    },
+    productPrice: {
+      required,
+      decimal,
+    },
+    imageData: {
+      required,
     },
   },
 };

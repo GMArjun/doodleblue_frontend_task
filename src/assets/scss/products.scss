@@ -9,6 +9,7 @@
     --ink-blue: #2D345F;
     --yellow: #F5AE42;
     --green: #4BB543;
+    --red: #ff0000;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
@@ -174,11 +175,19 @@ label:hover:before {
     position: relative;
     overflow: hidden;
 
+    &:hover {
+        .btn {
+            background-color: var(--dark-orange);
+            color: var(--white);
+        }
+    }
+
     .btn {
         border: 1px solid var(--dark-orange);
         color: var(--dark-orange);
         background-color: var(--white);
         border-radius: 2px;
+
     }
 
     input[type=file] {
@@ -188,7 +197,8 @@ label:hover:before {
         right: 0;
         bottom: 0;
         opacity: 0;
-        width: 112px;
+        width: 117px;
+        height: 38px;
     }
 }
 
@@ -346,7 +356,7 @@ label:hover:before {
     }
 
     .rating__input--none:checked+.rating__label .rating__icon--none {
-        color: red;
+        color: var(--red);
     }
 
     .rating__input:checked~.rating__label .rating__icon--star {
@@ -366,6 +376,14 @@ label:hover:before {
     }
 
     .rating__input--none:hover+.rating__label .rating__icon--none {
-        color: red;
+        color: var(--red);
+    }
+}
+
+.hasError {
+
+    input,
+    select {
+        border: 1px solid var(--red);
     }
 }

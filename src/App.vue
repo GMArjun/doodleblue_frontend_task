@@ -20,7 +20,7 @@
 
       <div class="flex flex-wrap">
         <div class="w-3/12 pr-5">
-          <Categories-Tray :cateData="Categories" @selectedCategory="handleSelectedCategory" />
+          <Categories-Tray :cateData="Categories" @selectedCategory="currentCategory = $event" />
           <PriceFilter :productsData="products" v-if="products && products.length" class="my-10" />
           <TopProducts class="my-10" :productsData="products" v-if="products && products.length" />
         </div>
@@ -28,7 +28,7 @@
         <div class="w-9/12">
           <div class="flex flex-wrap products">
             <Product
-              v-for="(product,i) in productsClone"
+              v-for="(product,i) in cProducts"
               :key="i"
               :pData="product"
               :pIndex="i"
@@ -83,7 +83,7 @@ export default {
   data() {
     return {
       products: [],
-      productsClone: [],
+      currentCategory: "Cate_0",
       Categories,
       modalVisible: false,
     };
@@ -99,7 +99,6 @@ export default {
   },
   watch: {
     products: function (newVal) {
-      this.productsClone = JSON.parse(JSON.stringify(newVal));
       localStorage
         ? localStorage.setItem("products", JSON.stringify(newVal))
         : "";
@@ -112,14 +111,14 @@ export default {
     handleEditedData(params) {
       this.$set(this.products, params.index, params.prodData);
     },
-    handleSelectedCategory(selected) {
-      let categoryFiltered = this.products.filter(
-        (product) => product.category == selected
-      );
-      this.productsClone =
-        selected === "Cate_0"
-          ? JSON.parse(JSON.stringify(this.products))
-          : categoryFiltered;
+  },
+  computed: {
+    cProducts() {
+      return this.currentCategory === "Cate_0"
+        ? this.products
+        : this.products.filter(
+            (product) => product.category == this.currentCategory
+          );
     },
   },
 };

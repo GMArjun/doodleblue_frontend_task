@@ -52,6 +52,7 @@ input[type='number'],
 select {
     @apply bg-grey border-greyish;
     outline: none !important;
+    -webkit-appearance: none;
 
     &::placeholder {
         @apply font-light text-gray;
@@ -286,7 +287,6 @@ label:hover:before {
 
 .topProducts {
     max-height: 500px;
-    height: 100%;
     overflow-y: auto;
 
     .topItems {
@@ -348,7 +348,7 @@ label:hover:before {
     }
 
     .rating__icon--star {
-        color: #F5AE42;
+        color: var(--yellow);
     }
 
     .rating__icon--none {
@@ -364,7 +364,7 @@ label:hover:before {
     }
 
     .rating-group:hover .rating__label .rating__icon--star {
-        color: #F5AE42;
+        color: var(--yellow);
     }
 
     .rating__input:hover~.rating__label .rating__icon--star {
@@ -385,5 +385,46 @@ label:hover:before {
     input,
     select {
         border: 1px solid var(--red);
+    }
+
+    select {
+        @apply border-r-0
+    }
+
+    .customSelect {
+        span {
+            border: 1px solid var(--red);
+            @apply border-l-0
+        }
+    }
+}
+
+.customSelect {
+    span {
+        @apply bg-grey border-greyish self-stretch flex justify-center items-center w-16;
+    }
+
+}
+
+.vue-slider {
+    height: 8px !important;
+    padding: 10px !important;
+
+    .vue-slider-rail {
+        background-color: #EAF0F5;
+
+        .vue-slider-process {
+            background-color: #EAF0F5;
+        }
+
+        .vue-slider-dot {
+            height: 20px !important;
+            width: 20px !important;
+
+            .vue-slider-dot-handle {
+                background-color: var(--greyish);
+                box-shadow: none !important;
+            }
+        }
     }
 }

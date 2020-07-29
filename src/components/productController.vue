@@ -9,7 +9,7 @@
                 <span class="closeI"></span>
               </div>
 
-              <div class="px-20 py-40" v-if="isDone">
+              <div class="px-6 sm:px-20 py-20 sm:py-40" v-if="isDone">
                 <div class="text-green flex flex-col justify-center items-center text-center">
                   <font-awesome-icon :icon="['fa', 'thumbs-up']" class="text-6xl" />
                   <div
@@ -18,48 +18,70 @@
                 </div>
               </div>
 
-              <div class="px-20 py-10" v-else>
-                <h1 class="text-center font-medium text-4xl font-roboto">{{title}}</h1>
-                <div class="pt-16 pb-8 font-mons">
+              <div class="px-6 sm:px-20 py-8 sm:py-10" v-else>
+                <h1 class="text-center font-medium text-3xl sm:text-4xl font-roboto">{{title}}</h1>
+                <div class="pt-6 sm:pt-16 pb-8 font-mons">
                   <div class="mb-6" :class="{ 'hasError': $v.selectedCategory.$error }">
                     <label class="block text-lg mb-2">Product Category</label>
-                    <select class="border w-full p-4" v-model="selectedCategory">
-                      <option value disabled>Select</option>
-                      <option value="Cate_1">Books</option>
-                      <option value="Cate_2">Dress</option>
-                      <option value="Cate_3">Bags</option>
-                      <option value="Cate_4">Mobiles</option>
-                    </select>
-                    <div v-if="$v.selectedCategory.$error" class="text-sm text-red mt-2 text-right font-roboto">Product Category is Required *</div>
+                    <div class="flex customSelect">
+                      <select
+                        class="border w-full p-3 sm:p-4 border-r-0"
+                        v-model="selectedCategory"
+                      >
+                        <option value disabled>Select</option>
+                        <option value="Cate_1">Books</option>
+                        <option value="Cate_2">Dress</option>
+                        <option value="Cate_3">Bags</option>
+                        <option value="Cate_4">Mobiles</option>
+                      </select>
+                      <span class="border border-l-0">
+                        <font-awesome-icon :icon="['fa', 'chevron-down']" class="text-gray" />
+                      </span>
+                    </div>
+
+                    <div
+                      v-if="$v.selectedCategory.$error"
+                      class="text-sm text-red mt-2 text-right font-roboto"
+                    >Product Category is Required *</div>
                   </div>
                   <div class="mb-6" :class="{ 'hasError': $v.productTitle.$error }">
                     <label class="block text-lg mb-2">Product Title</label>
                     <input
                       type="text"
-                      class="border w-full p-4 focus:outline-"
+                      class="border w-full p-3 sm:p-4 focus:outline-"
                       placeholder="Enter product title"
                       v-model="productTitle"
                     />
-                    <div v-if="$v.productTitle.$error" class="text-sm text-red mt-2 text-right font-roboto">Product Title is Required *</div>
+                    <div
+                      v-if="$v.productTitle.$error"
+                      class="text-sm text-red mt-2 text-right font-roboto"
+                    >Product Title is Required *</div>
                   </div>
-                  <div class="mb-6">
+                  <div class="mb-6" :class="{ 'hasError': $v.orgPrice.$error }">
                     <label class="block text-lg mb-2">Original Price</label>
                     <input
-                      type="number"
-                      class="border w-full p-4"
+                      type="text"
+                      class="border w-full p-3 sm:p-4"
                       placeholder="Enter original price"
                       v-model="orgPrice"
                     />
+                    <div
+                      v-if="!$v.orgPrice.decimal"
+                      class="text-sm text-red mt-2 text-right font-roboto"
+                    >Requires Number Only *</div>
                   </div>
                   <div class="mb-6" :class="{ 'hasError': $v.productPrice.$error }">
                     <label class="block text-lg mb-2">Sales Price</label>
                     <input
                       type="number"
-                      class="border w-full p-4"
+                      class="border w-full p-3 sm:p-4"
                       placeholder="Enter product price"
                       v-model="productPrice"
                     />
-                    <div v-if="$v.productPrice.$error" class="text-sm text-red mt-2 text-right font-roboto">Product Price is Required *</div>
+                    <div
+                      v-if="$v.productPrice.$error"
+                      class="text-sm text-red mt-2 text-right font-roboto"
+                    >Product Price is Required *</div>
                   </div>
 
                   <div class="mb-6">
@@ -178,19 +200,22 @@
                           accept="image/*"
                         />
                       </div>
-                       <div v-if="$v.imageData.$error" class="text-sm text-red mt-2 font-roboto">Product Image is Required *</div>
+                      <div
+                        v-if="$v.imageData.$error"
+                        class="text-sm text-red mt-2 font-roboto"
+                      >Product Image is Required *</div>
                     </div>
                   </div>
                 </div>
-                <hr class="py-6 border-greyish" />
+                <hr class="py-3 sm:py-6 border-greyish" />
                 <div class="flex justify-center">
                   <button
-                    class="bg-greyish font-mons p-3 px-8 w-40 mr-8 rounded uppercase focus:outline-none"
+                    class="bg-greyish font-mons p-3 px-6 sm:px-8 w-40 mr-3 sm:mr-8 rounded uppercase focus:outline-none"
                     @click="closeModal"
                   >Cancel</button>
                   <button
                     @click="saveProduct"
-                    class="p-3 px-8 w-40 font-mons mainGradient text-white rounded border-none uppercase focus:outline-none"
+                    class="p-3 px-6 sm:px-8 w-40 font-mons mainGradient text-white rounded border-none uppercase focus:outline-none"
                   >Save</button>
                 </div>
               </div>
@@ -251,15 +276,12 @@ export default {
       const ProductData = {
         category: this.selectedCategory,
         title: this.productTitle,
-        originalPrice: parseFloat(this.orgPrice),
+        originalPrice: this.orgPrice ? parseFloat(this.orgPrice) : "",
         price: parseFloat(this.productPrice),
         rating: parseInt(this.ratingValue),
         isTopProduct: this.isTopProduct,
         image: this.imageData,
       };
-      console.log(this.$v);
-      console.log(ProductData);
-
       if (!this.checkValid()) {
         if (this.existIndex != undefined) {
           this.$emit("productDataBack", {
@@ -270,8 +292,6 @@ export default {
           this.$emit("productDataBack", ProductData);
         }
         this.isDone = true;
-      } else {
-        console.log("Not Submit");
       }
     },
     closeModal() {
@@ -284,6 +304,9 @@ export default {
     },
     selectedCategory: {
       required,
+    },
+    orgPrice: {
+      decimal,
     },
     productPrice: {
       required,

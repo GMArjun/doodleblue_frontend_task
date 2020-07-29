@@ -17,7 +17,7 @@
               class="rating__icon rating__icon--none fa fa-star mr-1"
             />
           </div>
-          <div class="text-sm">${{product.price}}</div>
+          <div class="text-sm">${{(product.price).toFixed(2)}}</div>
         </div>
       </div>
     </div>
@@ -30,9 +30,9 @@ export default {
   props: ["productsData"],
   computed: {
     generateTopProducts() {
-      return this.productsData.filter(
-        (product) => product.isTopProduct == true
-      );
+      return this.productsData
+        .filter((product) => product.isTopProduct == true)
+        .sort((a, b) => a.price - b.price);
     },
   },
 };

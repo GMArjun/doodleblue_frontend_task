@@ -8,7 +8,17 @@
               <div class="modal-close" @click="closeModal">
                 <span class="closeI"></span>
               </div>
-              <div class="px-20 py-10">
+
+              <div class="px-20 py-40" v-if="isDone">
+                <div class="text-green flex flex-col justify-center items-center text-center">
+                  <font-awesome-icon :icon="['fa', 'thumbs-up']" class="text-6xl" />
+                  <div
+                    class="text-2xl mt-6 uppercase font-mons font-medium"
+                  >Product {{this.exist ? "Edited" : "Added"}} Successfully</div>
+                </div>
+              </div>
+
+              <div class="px-20 py-10" v-else>
                 <h1 class="text-center font-medium text-4xl font-roboto">{{title}}</h1>
                 <div class="pt-16 pb-8 font-mons">
                   <div class="mb-6">
@@ -201,6 +211,7 @@ export default {
       ratingValue: 0,
       imageData: "",
       isModalOpen: true,
+      isDone: false,
     };
   },
   props: ["exist", "existIndex", "title"],
@@ -251,6 +262,8 @@ export default {
         } else {
           this.$emit("productDataBack", ProductData);
         }
+
+        this.isDone = true;
       } else {
         console.log("Fill ALl Fields");
       }

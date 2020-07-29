@@ -10,7 +10,8 @@ module.exports = {
       greyish: "var(--greyish)",
       ink_blue: "var(--ink-blue)",
       gray: "var(--gray)",
-      yellow: "var(--yellow)"
+      yellow: "var(--yellow)",
+      green: "var(--green)"
     }
   },
   variants: {},

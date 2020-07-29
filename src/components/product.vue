@@ -4,10 +4,10 @@
       <div class="relative overflow-hidden productImage rounded-t-md h-56">
         <img :src="pData.image" class="w-full h-full object-cover transition ease-in duration-300" />
       </div>
-      <div class="px-4 py-6 text-center">
+      <div class="px-4 py-8 text-center">
         <div class="font-bold text-xl leading-none mb-2 truncate">{{pData.title}}</div>
         <div class="text-sm flex justify-center">
-          <span v-if="pData.originalPrice" class="mr-2 originalPrice">${{pData.originalPrice}}</span>
+          <span v-if="pData.originalPrice" class="mr-2 line-through text-gray">${{pData.originalPrice}}</span>
           <span>${{pData.price}}</span>
         </div>
       </div>

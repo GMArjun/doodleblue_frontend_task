@@ -2,7 +2,7 @@
   <div id="app">
     <div class="max-w-screen-xl mx-auto px-6 xl:px-0">
       <div class="flex py-12">
-        <div class="self-center text-4xl font-medium mr-auto leading-none">Products</div>
+        <div class="self-center text-4xl font-medium mr-auto leading-none text-black">Products</div>
         <button
           @click="modalVisible = true"
           class="px-12 py-4 rounded mainGradient text-white font-light text-2xl leading-none focus:outline-none"

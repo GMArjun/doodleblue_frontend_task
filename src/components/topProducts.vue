@@ -1,6 +1,6 @@
 <template>
   <div class="topProducts">
-    <div class="uppercase mb-4">Top Products</div>
+    <div class="uppercase mb-4 text-sm font-medium text-gray">Top Products</div>
     <div class="topItems">
       <div class="flex py-4 cursor-pointer" v-for="(product,i) in generateTopProducts" :key="i">
         <img :src="product.image" class="h-20 w-20 object-cover rounded mr-3" />

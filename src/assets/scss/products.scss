@@ -1,17 +1,30 @@
+:root {
+    --orange: #F67354;
+    --dark-orange: #F84659;
+    --black: #000000;
+    --white: #FFFFFF;
+    --grey: #F7F8FA;
+    --greyish: #D5DFE5;
+    --gray: #5E6D80;
+    --ink-blue: #2D345F;
+}
+
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800&display=swap');
 
 body {
     font-family: 'Roboto', sans-serif;
+    @apply text-ink_blue;
 }
 
 .mainGradient {
-    background: rgb(240, 118, 84);
-    background: linear-gradient(90deg, rgba(240, 118, 84, 1) 20%, rgba(237, 64, 88, 1) 100%);
+    background: var(--orange);
+    background: linear-gradient(90deg, var(--orange) 20%, var(--dark-orange) 100%);
 }
 
 .products {
     .product {
-        box-shadow: 0px 0px 12px #e0e0e0;
+        box-shadow: 0px 0px 12px var(--greyish);
 
         &:hover {
             .productImage {
@@ -20,6 +33,24 @@ body {
                 }
             }
         }
+    }
+}
+
+.font-roboto {
+    font-family: 'Roboto', sans-serif;
+}
+
+.font-mons {
+    font-family: 'Montserrat', sans-serif;
+}
+
+input[type='text'],
+select {
+    @apply bg-grey border-greyish;
+    outline: none !important;
+
+    &::placeholder {
+        @apply font-light text-gray;
     }
 }
 
@@ -36,6 +67,7 @@ body {
     will-change: transform;
     pointer-events: auto;
     background-color: rgba(0, 0, 0, 0.3);
+
 
     .modal-wrapper {
         display: table;
@@ -57,11 +89,10 @@ body {
                 pointer-events: auto;
 
                 .modal-content {
-                    box-shadow: 1px 5px 15px 1px #0003;
                     @apply relative bg-white;
 
                     .modal-close {
-                        @apply absolute flex justify-center rounded-full text-white items-center h-12 w-12 cursor-pointer;
+                        @apply absolute flex justify-center rounded-full text-white bg-dark_orange items-center h-16 w-16 cursor-pointer;
                         top: -16px;
                         right: -16px;
                     }
@@ -111,7 +142,7 @@ body {
     left: 0.18em;
     font-size: 1.2em;
     line-height: 0.8;
-    color: #09ad7e;
+    color: var(--dark-orange);
     transition: all .2s;
     font-family: 'Lucida Sans Unicode', 'Arial Unicode MS', Arial;
 }
@@ -130,7 +161,7 @@ body {
 
 /* hover style just for information */
 label:hover:before {
-    border: 2px solid #4778d9 !important;
+    border: 2px solid var(--dark-orange) !important;
 }
 
 
@@ -141,9 +172,9 @@ label:hover:before {
     overflow: hidden;
 
     .btn {
-        border: 1px solid rgb(240, 118, 84);
-        color: rgb(240, 118, 84);
-        background-color: white;
+        border: 1px solid var(--dark-orange);
+        color: var(--dark-orange);
+        background-color: var(--white);
         border-radius: 2px;
     }
 
@@ -164,9 +195,19 @@ label:hover:before {
     width: 150px;
 
     .close {
-        @apply absolute flex justify-center rounded-full text-white items-center h-6 w-6 cursor-pointer text-sm;
-        top: -10px;
-        right: -10px;
+        @apply absolute flex justify-center bg-dark_orange rounded-full text-white items-center h-8 w-8 cursor-pointer text-sm;
+        top: -12px;
+        right: -15px;
+
+        .closeI {
+
+            &::before,
+            &::after {
+                left: 16px;
+                height: 17px;
+                top: 8px;
+            }
+        }
     }
 
     img {
@@ -206,12 +247,12 @@ label:hover:before {
 
 .categories {
     .content {
-        background-color: #F7F8FA;
+        background-color: var(--grey);
         @apply text-lg;
 
         .list {
             &.active {
-                color: red;
+                color: var(--dark-orange);
             }
         }
 
@@ -220,13 +261,11 @@ label:hover:before {
                 .list {
                     border-bottom: 0px;
                 }
-
             }
-
         }
 
         .list {
-            border-bottom: 1px solid#E5E9EA;
+            border-bottom: 1px solid var(--greyish);
         }
     }
 }
@@ -239,11 +278,36 @@ label:hover:before {
 
     .topItems {
         .flex {
-            border-bottom: 1px solid #E5E9EA;
+            border-bottom: 1px solid var(--greyish);
 
             &:last-child {
                 border-bottom: 0px;
             }
         }
+    }
+}
+
+.closeI {
+    width: 32px;
+    height: 32px;
+    opacity: 1;
+
+    &::before,
+    &::after {
+        position: absolute;
+        left: 32px;
+        content: ' ';
+        height: 32px;
+        width: 1px;
+        background-color: var(--white);
+        top: 16px;
+    }
+
+    &::before {
+        transform: rotate(45deg);
+    }
+
+    &::after {
+        transform: rotate(-45deg);
     }
 }

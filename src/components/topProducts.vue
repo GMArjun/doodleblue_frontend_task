@@ -30,9 +30,9 @@ export default {
   props: ["productsData"],
   computed: {
     generateTopProducts() {
-      return this.productsData.filter(
-        (product) => product.isTopProduct == true
-      );
+      return this.productsData
+        .filter((product) => product.isTopProduct == true)
+        .sort((a, b) => a.price - b.price);
     },
   },
 };

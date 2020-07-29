@@ -47,6 +47,7 @@ body {
 }
 
 input[type='text'],
+input[type='number'],
 select {
     @apply bg-grey border-greyish;
     outline: none !important;

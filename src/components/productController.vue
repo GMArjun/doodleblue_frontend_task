@@ -43,7 +43,7 @@
                   <div class="mb-6">
                     <label class="block text-lg mb-2">Original Price</label>
                     <input
-                      type="text"
+                      type="number"
                       class="border w-full p-4"
                       placeholder="Enter original price"
                       v-model="orgPrice"
@@ -52,7 +52,7 @@
                   <div class="mb-6">
                     <label class="block text-lg mb-2">Sales Price</label>
                     <input
-                      type="text"
+                      type="number"
                       class="border w-full p-4"
                       placeholder="Enter product price"
                       v-model="productPrice"
@@ -181,12 +181,12 @@
                 <hr class="py-6 border-greyish" />
                 <div class="flex justify-center">
                   <button
-                    class="bg-greyish font-mons p-2 px-8 w-40 mr-8 rounded uppercase"
+                    class="bg-greyish font-mons p-2 px-8 w-40 mr-8 rounded uppercase focus:outline-none"
                     @click="closeModal"
                   >Cancel</button>
                   <button
                     @click="saveProduct"
-                    class="p-2 px-8 w-40 font-mons mainGradient text-white rounded border-none uppercase"
+                    class="p-2 px-8 w-40 font-mons mainGradient text-white rounded border-none uppercase focus:outline-none"
                   >Save</button>
                 </div>
               </div>

@@ -17,7 +17,11 @@
             @selectedCategory="currentCategory = $event"
             class="my-6"
           />
-          <PriceFilter :productsData="products" v-if="products && products.length" class="my-10" />
+          <PriceFilter
+            :productsData="paginated('cProducts')"
+            v-if="paginated('cProducts') && paginated('cProducts')"
+            class="my-10"
+          />
           <TopProducts class="my-10" :productsData="products" v-if="products && products.length" />
         </div>
 

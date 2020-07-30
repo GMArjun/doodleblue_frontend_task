@@ -262,6 +262,11 @@ label:hover:before {
 .categories {
     .content {
         background-color: var(--grey);
+
+        @media(max-width: 1023px) {
+            background-color: #fff;
+        }
+
         @apply text-lg;
 
         .list {
@@ -461,10 +466,28 @@ label:hover:before {
             height: 40px !important;
             background-color: var(--greyish) !important;
 
+            .closeI {
+
+                &::before,
+                &::after {
+                    background-color: var(--black);
+                    left: 19px;
+                    height: 23px;
+                    width: 3px;
+                    top: 9px;
+                }
+            }
+
             @media(min-width:1024px) {
                 display: none !important;
             }
         }
 
+    }
+
+    &.is-absolute {
+        position: fixed !important;
+        min-height: 100vh !important;
+        z-index: 10;
     }
 }

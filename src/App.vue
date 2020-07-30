@@ -1,10 +1,15 @@
 <template>
   <div id="app">
-    <VueSidebarUi v-model="hasRightSidebarOpen" :width="280" absolute left>
+    <resize-observer @notify="handleResize" />
+    
+    <VueSidebarUi v-if="mobileView" v-model="hasRightSidebarOpen" :width="280" absolute left>
       <i slot="button-icon" class="material-icons">
-        <img src="./assets/images/Hamburger.png" class="h-6 w-6" alt />
+        <img src="./assets/images/Hamburger.png" class="h-6 w-6" v-if="!hasRightSidebarOpen" alt />
+        <div v-else class="closeI"></div>
       </i>
-      hello
+      <div class="sidebar p-4">
+          <Categories-Tray :cateData="Categories" @selectedCategory="currentCategory = $event" />
+      </div>    
     </VueSidebarUi>
 
     <div class="max-w-screen-xl mx-auto px-3 py-3 sm:px-6 xl:px-0">
@@ -21,6 +26,7 @@
       <div class="flex flex-col lg:flex-row flex-wrap">
         <div class="w-full lg:w-3/12 pr-0 lg:pr-5 order-2 lg:order-1">
           <Categories-Tray
+            v-if="!mobileView"
             :cateData="Categories"
             @selectedCategory="currentCategory = $event"
             class="my-6"
@@ -28,19 +34,23 @@
           <PriceFilter
             @filterRange="filtered = $event"
             :productsData="paginated('products')"
-            v-if="paginated('products') && paginated('products').length"
+            v-if="!mobileView && paginated('products') && paginated('products').length"
             class="my-10"
           />
-          <TopProducts class="my-10" :productsData="paginated('products')" v-if="paginated('products') && paginated('products').length" />
+          <TopProducts
+            class="my-10"
+            :productsData="paginated('products')"
+            v-if="paginated('products') && paginated('products').length"
+          />
         </div>
 
         <div class="w-full lg:w-9/12 order-1 lg:order-2" v-if="products && products.length">
-          <div class="flex px-4 py-3">
+          <div class="flex px-2 lg:px-4 py-3">
             <div
-              class="mr-3 self-center text-gray"
+              class="mr-3 self-center text-sm sm:text-base text-gray"
               v-if="$refs.paginator"
             >Showing {{$refs.paginator.pageItemsCount}} Results</div>
-            <SortBy class="ml-auto" :productsData="products" @selectedSort="sortBy = $event" />
+            <SortBy class="ml-auto" v-if="!mobileView" :productsData="products" @selectedSort="sortBy = $event" />
           </div>
           <paginate
             name="products"
@@ -60,7 +70,7 @@
           </paginate>
           <paginate-links
             for="products"
-            class="my-10"
+            class="mt-8 mb-0  md:my-10"
             :show-step-links="true"
             :hide-single-page="true"
             :limit="3"
@@ -136,6 +146,7 @@ export default {
       modalVisible: false,
       filtered: null,
       hasRightSidebarOpen: false,
+      mobileView : false
     };
   },
   watch: {
@@ -174,20 +185,16 @@ export default {
         ? localStorage.setItem("products", JSON.stringify(this.products))
         : "";
     },
+    handleResize({width}){this.mobileView = width <= 1023 ? true : false}
   },
   computed: {
-    // fProduct() {
-    //   let filtereddata = this.filtered;
-    //   return filtereddata
-    //     ? this.cProducts.filter(
-    //         (p) => p.price >= filtereddata[0] && p.price <= filtereddata[1]
-    //       )
-    //     : this.cProducts;
-    // },
-    categorizedProducts(){
-      let dataofCategory = this.currentCategory === "Cate_0" ? JSON.parse(JSON.stringify(this.products)) : this.products.filter((p) => p.category == this.currentCategory);
+    categorizedProducts() {
+      let dataofCategory =
+        this.currentCategory === "Cate_0"
+          ? JSON.parse(JSON.stringify(this.products))
+          : this.products.filter((p) => p.category == this.currentCategory);
       return dataofCategory;
-    }
+    },
   },
 };
 </script>

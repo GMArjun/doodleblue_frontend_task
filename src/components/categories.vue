@@ -1,7 +1,7 @@
 <template>
   <div class="categories">
-    <div class="uppercase mb-4 text-sm font-medium text-gray">Categories</div>
-    <div class="px-8 py-3 bg-grey content rounded">
+    <div class="uppercase mb-4 text-xl sm:text-2xl lg:text-sm font-medium text-gray">Categories</div>
+    <div class="px-2 lg:px-8 py-3 bg-grey content rounded">
       <div v-for="(category,i) in cateData" :key="i" @click="showByCategory(category.Value,i)">
         <div
           class="list py-3 cursor-pointer font-medium"

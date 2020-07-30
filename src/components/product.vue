@@ -4,8 +4,8 @@
       <div class="relative overflow-hidden productImage rounded-t-md h-32 sm:h-48 lg:h-56">
         <img :src="pData.image" class="w-full h-full object-cover transition ease-in duration-300" />
       </div>
-      <div class="px-4 py-4 sm:py-6 lg:py-8 text-center">
-        <div class="font-bold text-md md:text-xl leading-none mb-2 truncate">{{pData.title}}</div>
+      <div class="px-3 py-3 sm:py-6 lg:py-8 text-center">
+        <div class="font-bold text-md md:text-xl leading-none mb-1 sm:mb-2 truncate">{{pData.title}}</div>
         <div class="text-xs sm:text-sm flex justify-center">
           <span v-if="pData.originalPrice" class="mr-2 line-through text-gray">${{(pData.originalPrice).toFixed(2)}}</span>
           <span>${{(pData.price).toFixed(2)}}</span>

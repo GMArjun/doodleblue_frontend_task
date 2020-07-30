@@ -531,3 +531,13 @@ label:hover:before {
         width: 280px;
     }
 }
+
+.ribbon{
+    top:15px;
+    left:15px;
+    z-index: 2;
+    @media(max-width: 639px){
+        top:10px;
+        left:10px;
+    }
+}

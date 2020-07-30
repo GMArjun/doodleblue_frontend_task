@@ -44,7 +44,10 @@
           />
         </div>
 
-        <div class="w-full lg:w-9/12 order-1 lg:order-2" v-if="products && products.length">
+        <div
+          class="w-full lg:w-9/12 order-1 lg:order-2"
+          v-if="products && products.length && categorizedProducts && categorizedProducts.length"
+        >
           <div class="flex px-2 lg:px-4 py-3">
             <div
               class="mr-3 self-center text-sm sm:text-base text-gray"
@@ -73,6 +76,7 @@
             </Dropdown>
           </div>
           <paginate
+            v-if="categorizedProducts && categorizedProducts.length"
             name="products"
             ref="paginator"
             tag="div"
@@ -123,6 +127,7 @@ import TopProducts from "./components/topProducts";
 import PriceFilter from "./components/priceFilter";
 import SortBy from "./components/sortBy";
 import Dropdown from "./components/dropDown";
+import mockProducts from "./mockData/products.json";
 
 const Categories = [
   {
@@ -160,7 +165,7 @@ export default {
   },
   data() {
     return {
-      products: [],
+      products: [...mockProducts],
       paginate: ["products"],
       currentCategory: null,
       sortBy: null,
@@ -185,27 +190,12 @@ export default {
       }
     },
   },
-  mounted() {
-    if (
-      localStorage &&
-      localStorage["products"] &&
-      localStorage["products"].length
-    ) {
-      this.products = JSON.parse(localStorage["products"]);
-    }
-  },
   methods: {
     handleIncomingProduct(params) {
       this.products.unshift(params);
-      this.setLocal();
     },
     handleEditedData(params) {
       this.$set(this.paginated("products"), params.index, params.prodData);
-    },
-    setLocal() {
-      localStorage
-        ? localStorage.setItem("products", JSON.stringify(this.products))
-        : "";
     },
     handleResize({ width }) {
       this.mobileView = width <= 1023 ? true : false;

@@ -17,32 +17,60 @@
             @selectedCategory="currentCategory = $event"
             class="my-6"
           />
-          <PriceFilter :productsData="products" v-if="products && products.length" class="my-10" />
+          <PriceFilter
+            @filterRange="filtered = $event"
+            :productsData="cProducts"
+            v-if="cProducts && cProducts.length"
+            class="my-10"
+          />
           <TopProducts class="my-10" :productsData="products" v-if="products && products.length" />
         </div>
 
-        <div class="w-9/12">
+        <div class="w-9/12" v-if="fProduct && fProduct.length">
           <div class="flex px-4 py-3">
-            <div class="mr-auto self-center text-gray">Showing 1 - 8 of 9 Results</div>
-            <SortBy :productsData="cProducts" @selectedSort="sortBy = $event" />
+            <div
+              class="mr-3 self-center text-gray"
+              v-if="$refs.paginator"
+            >Showing {{$refs.paginator.pageItemsCount}} Results</div>
+            <SortBy class="ml-auto" :productsData="fProduct" @selectedSort="sortBy = $event" />
           </div>
 
-          <div class="flex flex-wrap products" v-if="cProducts && cProducts.length">
-            <Product
-              v-for="(product,i) in cProducts"
-              :key="i"
-              :pData="product"
-              :pIndex="i"
-              @editedData="handleEditedData"
-            />
+          <div v-if="fProduct && fProduct.length">
+            <paginate
+              name="fProduct"
+              ref="paginator"
+              tag="div"
+              class="flex flex-wrap products"
+              :list="fProduct"
+              :per="9"
+            >
+              <Product
+                v-for="(product,i) in paginated('fProduct')"
+                :key="i"
+                :pData="product"
+                :pIndex="i"
+                @editedData="handleEditedData"
+              />
+            </paginate>
+            <paginate-links
+              for="fProduct"
+              class="my-10"
+              :show-step-links="true"
+              :hide-single-page="true"
+              :limit="3"
+            ></paginate-links>
           </div>
-          <div v-else class="flex flex-col justify-center items-center p-10 py-20">
+        </div>
+
+        <div class="w-9/12" v-else>
+          <div class="flex flex-col justify-center items-center p-10 py-20">
             <img src="./assets/images/empty.png" class="max-w-full flex-shrink-0" alt />
-            <div class="text-xl sm:text-4xl text-center text-gray mt-2">No Products Available</div>
+            <div class="text-xl sm:text-4xl text-center text-gray mt-2 pl-3">No Products Available</div>
           </div>
         </div>
       </div>
     </div>
+
     <P-Controller
       title="Add Product"
       @productDataBack="handleIncomingProduct"
@@ -100,6 +128,8 @@ export default {
       sortBy: null,
       Categories,
       modalVisible: false,
+      paginate: ["fProduct"],
+      filtered: null,
     };
   },
   watch: {
@@ -127,7 +157,7 @@ export default {
   },
   methods: {
     handleIncomingProduct(params) {
-      this.products.push(params);
+      this.products.unshift(params);
       this.setLocal();
     },
     handleEditedData(params) {
@@ -147,6 +177,14 @@ export default {
         : this.products.filter(
             (product) => product.category == this.currentCategory
           );
+    },
+    fProduct() {
+      let filtereddata = this.filtered;
+      return filtereddata
+        ? this.cProducts.filter(
+            (p) => p.price >= filtereddata[0] && p.price <= filtereddata[1]
+          )
+        : this.cProducts;
     },
   },
 };

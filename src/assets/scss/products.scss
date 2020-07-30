@@ -428,3 +428,24 @@ label:hover:before {
         }
     }
 }
+
+.paginate-links {
+    @apply flex justify-center;
+
+    li {
+        @apply mx-1;
+
+        a {
+            @apply h-10 w-10 border border-greyish flex justify-center items-center rounded-md cursor-pointer
+        }
+
+        &.active {
+            a {
+                @apply border-dark_orange bg-dark_orange text-white
+            }
+        }
+        &.disabled{
+            display: none;
+        }
+    }
+}

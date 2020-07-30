@@ -6,9 +6,9 @@
     >Top Products</div>
     <div class="topItems">
       <div class="flex py-4 cursor-pointer" v-for="(product,i) in generateTopProducts" :key="i">
-        <img :src="product.image" class="h-20 w-20 object-cover rounded mr-3" />
+        <img :src="product.image" class="h-20 w-20 object-contain rounded mr-3 border border-grey" />
         <div class="overflow-hidden">
-          <div class="text-lg font-medium truncate">{{product.title}}</div>
+          <div class="text-md sm:text-lg font-medium truncate">{{product.title}}</div>
           <div v-if="product.rating" class="text-xs mb-2 text-yellow">
             <font-awesome-icon
               v-for="(rating) in product.rating"

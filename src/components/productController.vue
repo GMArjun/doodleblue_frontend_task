@@ -29,10 +29,10 @@
                         v-model="selectedCategory"
                       >
                         <option value disabled>Select</option>
-                        <option value="Cate_1">Books</option>
-                        <option value="Cate_2">Dress</option>
-                        <option value="Cate_3">Bags</option>
-                        <option value="Cate_4">Mobiles</option>
+                        <option value="Cate_1">Fashion</option>
+                        <option value="Cate_2">Book & Audible</option>
+                        <option value="Cate_3">Electronics</option>
+                        <option value="Cate_4">Home, Kitchen</option>
                       </select>
                       <span class="border border-l-0">
                         <font-awesome-icon :icon="['fa', 'chevron-down']" class="text-gray" />

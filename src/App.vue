@@ -80,7 +80,7 @@
             name="products"
             ref="paginator"
             tag="div"
-            class="flex flex-wrap products"
+            class="flex flex-wrap products pWrapper"
             :list="categorizedProducts"
             :per="9"
           >
@@ -135,19 +135,19 @@ const Categories = [
     Value: "Cate_0",
   },
   {
-    Name: "Books",
+    Name: "Fashion",
     Value: "Cate_1",
   },
   {
-    Name: "Dress",
+    Name: "Book & Audible",
     Value: "Cate_2",
   },
   {
-    Name: "Bags",
+    Name: "Electronics",
     Value: "Cate_3",
   },
   {
-    Name: "Mobiles",
+    Name: "Home, Kitchen",
     Value: "Cate_4",
   },
 ];
@@ -165,7 +165,7 @@ export default {
   },
   data() {
     return {
-      products: [...mockProducts],
+      products: [],
       paginate: ["products"],
       currentCategory: null,
       sortBy: null,
@@ -189,6 +189,9 @@ export default {
           break;
       }
     },
+  },
+  mounted() {
+    this.products = mockProducts && mockProducts.length ? mockProducts : [];
   },
   methods: {
     handleIncomingProduct(params) {

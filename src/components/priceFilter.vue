@@ -1,8 +1,8 @@
 <template>
   <div class="priceRange">
-    <div class="uppercase mb-4 text-sm font-medium text-gray">Filter by Price</div>
+    <div class="uppercase mb-1 lg:mb-4 text-sm font-medium text-gray">Filter by Price</div>
     <vue-slider v-model="pRange" :tooltip="'none'" :min="1" :max="maxPrice"></vue-slider>
-    <div class="my-4 text-sm flex">
+    <div class="mt-3 mb-0 lg:my-4 text-sm flex">
       <button
         @click="filter"
         class="p-1 px-4 mainGradient text-white rounded border-none focus:outline-none mr-auto"

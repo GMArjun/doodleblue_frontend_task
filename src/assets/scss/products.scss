@@ -100,6 +100,20 @@ select {
                         @apply absolute flex justify-center rounded-full text-white bg-dark_orange items-center h-16 w-16 cursor-pointer;
                         top: -16px;
                         right: -16px;
+
+                        @media(max-width: 639px) {
+                            @apply h-12 w-12;
+
+                            .closeI {
+
+                                &::before,
+                                &::after {
+                                    left: 24px;
+                                    height: 22px;
+                                    top: 13px;
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -441,7 +455,8 @@ label:hover:before {
         @apply mx-1;
 
         a {
-            @apply h-10 w-10 border border-greyish flex justify-center items-center rounded-md cursor-pointer
+            @apply h-10 w-10 border border-greyish flex justify-center items-center rounded-md cursor-pointer;
+            text-decoration: none;
         }
 
         &.active {
@@ -488,6 +503,31 @@ label:hover:before {
     &.is-absolute {
         position: fixed !important;
         min-height: 100vh !important;
-        z-index: 10;
+        z-index: 11;
+    }
+}
+
+.outside {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 4;
+}
+
+.in-dropdown {
+    box-shadow: 0px 2px 8px #00000029;
+    position: absolute;
+    width: 350px;
+    right: 0;
+    top: 45px;
+    z-index: 5;
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 4px;
+
+    @media(max-width: 500px) {
+        width: 280px;
     }
 }

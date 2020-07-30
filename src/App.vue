@@ -1,15 +1,15 @@
 <template>
   <div id="app">
     <resize-observer @notify="handleResize" />
-    
+
     <VueSidebarUi v-if="mobileView" v-model="hasRightSidebarOpen" :width="280" absolute left>
       <i slot="button-icon" class="material-icons">
         <img src="./assets/images/Hamburger.png" class="h-6 w-6" v-if="!hasRightSidebarOpen" alt />
         <div v-else class="closeI"></div>
       </i>
       <div class="sidebar p-4">
-          <Categories-Tray :cateData="Categories" @selectedCategory="currentCategory = $event" />
-      </div>    
+        <Categories-Tray :cateData="Categories" @selectedCategory="currentCategory = $event" />
+      </div>
     </VueSidebarUi>
 
     <div class="max-w-screen-xl mx-auto px-3 py-3 sm:px-6 xl:px-0">
@@ -50,7 +50,27 @@
               class="mr-3 self-center text-sm sm:text-base text-gray"
               v-if="$refs.paginator"
             >Showing {{$refs.paginator.pageItemsCount}} Results</div>
-            <SortBy class="ml-auto" v-if="!mobileView" :productsData="products" @selectedSort="sortBy = $event" />
+            <SortBy
+              class="ml-auto"
+              v-if="!mobileView"
+              :productsData="products"
+              @selectedSort="sortBy = $event"
+            />
+            <Dropdown class="ml-auto" v-else>
+              <div class="uppercase mb-2 text-sm font-medium text-gray">Sort By</div>
+              <SortBy
+                class="ml-auto"
+                v-if="mobileView"
+                :productsData="products"
+                @selectedSort="sortBy = $event"
+              />
+              <PriceFilter
+                @filterRange="filtered = $event"
+                :productsData="paginated('products')"
+                v-if="mobileView && paginated('products') && paginated('products').length"
+                class="mt-3"
+              />
+            </Dropdown>
           </div>
           <paginate
             name="products"
@@ -70,7 +90,7 @@
           </paginate>
           <paginate-links
             for="products"
-            class="mt-8 mb-0  md:my-10"
+            class="mt-8 mb-0 md:my-10"
             :show-step-links="true"
             :hide-single-page="true"
             :limit="3"
@@ -102,6 +122,7 @@ import Product from "./components/product";
 import TopProducts from "./components/topProducts";
 import PriceFilter from "./components/priceFilter";
 import SortBy from "./components/sortBy";
+import Dropdown from "./components/dropDown";
 
 const Categories = [
   {
@@ -135,6 +156,7 @@ export default {
     TopProducts,
     PriceFilter,
     SortBy,
+    Dropdown,
   },
   data() {
     return {
@@ -146,7 +168,7 @@ export default {
       modalVisible: false,
       filtered: null,
       hasRightSidebarOpen: false,
-      mobileView : false
+      mobileView: false,
     };
   },
   watch: {
@@ -185,7 +207,9 @@ export default {
         ? localStorage.setItem("products", JSON.stringify(this.products))
         : "";
     },
-    handleResize({width}){this.mobileView = width <= 1023 ? true : false}
+    handleResize({ width }) {
+      this.mobileView = width <= 1023 ? true : false;
+    },
   },
   computed: {
     categorizedProducts() {

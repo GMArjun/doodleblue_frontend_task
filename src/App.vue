@@ -23,7 +23,6 @@
             v-if="cProducts && cProducts.length"
             class="my-10"
           />
-          {{filtered}}
           <TopProducts class="my-10" :productsData="products" v-if="products && products.length" />
         </div>
 
@@ -61,9 +60,12 @@
               :limit="3"
             ></paginate-links>
           </div>
-          <div v-else class="flex flex-col justify-center items-center p-10 py-20">
+        </div>
+
+        <div class="w-9/12" v-else>
+          <div class="flex flex-col justify-center items-center p-10 py-20">
             <img src="./assets/images/empty.png" class="max-w-full flex-shrink-0" alt />
-            <div class="text-xl sm:text-4xl text-center text-gray mt-2">No Products Available</div>
+            <div class="text-xl sm:text-4xl text-center text-gray mt-2 pl-3">No Products Available</div>
           </div>
         </div>
       </div>
@@ -178,13 +180,11 @@ export default {
     },
     fProduct() {
       let filtereddata = this.filtered;
-      if (filtereddata) {
-        return this.cProducts.filter(
-          (p) => p.price >= filtereddata[0] && p.price <= filtereddata[1]
-        );
-      } else {
-        return this.cProducts;
-      }
+      return filtereddata
+        ? this.cProducts.filter(
+            (p) => p.price >= filtereddata[0] && p.price <= filtereddata[1]
+          )
+        : this.cProducts;
     },
   },
 };

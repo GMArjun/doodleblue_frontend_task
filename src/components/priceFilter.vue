@@ -1,13 +1,13 @@
 <template>
-  <div class="priceRange" v-if="selectedRange && selectedRange.length == 2 && minPrice && maxPrice">
+  <div class="priceRange">
     <div class="uppercase mb-4 text-sm font-medium text-gray">Filter by Price</div>
-    <vue-slider v-model="pRange" :tooltip="'none'" :min="minPrice" :max="maxPrice"></vue-slider>
+    <vue-slider v-model="pRange" :tooltip="'none'" :min="1" :max="maxPrice"></vue-slider>
     <div class="my-4 text-sm flex">
       <button
         @click="filter"
         class="p-1 px-4 mainGradient text-white rounded border-none focus:outline-none mr-auto"
       >Filter</button>
-      <div class="text-sm ml-3 self-center">
+      <div class="text-sm ml-3 self-center" v-if="selectedRange && selectedRange.length">
         <span class="mr-1 text-gray">Price:</span>
         <span class="text-black">${{selectedRange[0]}} - ${{selectedRange[1]}}</span>
       </div>
@@ -31,13 +31,16 @@ export default {
   },
   methods: {
     filter() {
-      console.log(this.selectedRange);
+      this.$emit("filterRange", this.selectedRange);
     },
   },
   watch: {
     pRange: function (newVal) {
-      this.selectedRange = newVal;
+      this.selectedRange = [1, newVal[1]];
     },
+  },
+  mounted() {
+    this.selectedRange = [1, this.maxPrice];
   },
   computed: {
     maxPrice() {
@@ -50,19 +53,9 @@ export default {
         )
       );
     },
-    minPrice() {
-      return Math.ceil(
-        Math.min.apply(
-          Math,
-          this.productsData.map(function (o) {
-            return o.price;
-          })
-        )
-      );
-    },
     pRange: {
       get() {
-        return [this.minPrice, this.maxPrice];
+        return [1, this.maxPrice];
       },
       set(rValue) {
         this.selectedRange = rValue;

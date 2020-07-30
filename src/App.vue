@@ -1,71 +1,106 @@
 <template>
   <div id="app">
-    <div class="max-w-screen-xl mx-auto px-6 xl:px-0">
+    <resize-observer @notify="handleResize" />
+
+    <VueSidebarUi v-if="mobileView" v-model="hasRightSidebarOpen" :width="280" absolute left>
+      <i slot="button-icon" class="material-icons">
+        <img src="./assets/images/Hamburger.png" class="h-6 w-6" v-if="!hasRightSidebarOpen" alt />
+        <div v-else class="closeI"></div>
+      </i>
+      <div class="sidebar p-4">
+        <Categories-Tray :cateData="Categories" @selectedCategory="currentCategory = $event" />
+      </div>
+    </VueSidebarUi>
+
+    <div class="max-w-screen-xl mx-auto px-3 py-3 sm:px-6 xl:px-0">
       <div class="flex py-8 sm:py-12">
         <div
-          class="self-center text-3xl sm:text-4xl font-medium mr-auto leading-none text-black"
+          class="self-center text-2xl flex sm:text-4xl font-medium mr-auto leading-none text-black"
         >Products</div>
         <button
           @click="modalVisible = true"
           class="px-4 sm:px-12 py-3 sm:py-4 rounded mainGradient text-white font-light text-base sm:text-2xl leading-none focus:outline-none"
         >Add Product</button>
       </div>
-      <div class="flex flex-wrap">
-        <div class="w-3/12 pr-5">
+
+      <div class="flex flex-col lg:flex-row flex-wrap">
+        <div class="w-full lg:w-3/12 pr-0 lg:pr-5 order-2 lg:order-1">
           <Categories-Tray
+            v-if="!mobileView"
             :cateData="Categories"
             @selectedCategory="currentCategory = $event"
             class="my-6"
           />
           <PriceFilter
             @filterRange="filtered = $event"
-            :productsData="cProducts"
-            v-if="cProducts && cProducts.length"
+            :productsData="paginated('products')"
+            v-if="!mobileView && paginated('products') && paginated('products').length"
             class="my-10"
           />
-          <TopProducts class="my-10" :productsData="products" v-if="products && products.length" />
+          <TopProducts
+            class="my-10"
+            :productsData="paginated('products')"
+            v-if="paginated('products') && paginated('products').length"
+          />
         </div>
 
-        <div class="w-9/12" v-if="fProduct && fProduct.length">
-          <div class="flex px-4 py-3">
+        <div class="w-full lg:w-9/12 order-1 lg:order-2" v-if="products && products.length">
+          <div class="flex px-2 lg:px-4 py-3">
             <div
-              class="mr-3 self-center text-gray"
+              class="mr-3 self-center text-sm sm:text-base text-gray"
               v-if="$refs.paginator"
             >Showing {{$refs.paginator.pageItemsCount}} Results</div>
-            <SortBy class="ml-auto" :productsData="fProduct" @selectedSort="sortBy = $event" />
-          </div>
-
-          <div v-if="fProduct && fProduct.length">
-            <paginate
-              name="fProduct"
-              ref="paginator"
-              tag="div"
-              class="flex flex-wrap products"
-              :list="fProduct"
-              :per="9"
-            >
-              <Product
-                v-for="(product,i) in paginated('fProduct')"
-                :key="i"
-                :pData="product"
-                :pIndex="i"
-                @editedData="handleEditedData"
+            <SortBy
+              class="ml-auto"
+              v-if="!mobileView"
+              :productsData="products"
+              @selectedSort="sortBy = $event"
+            />
+            <Dropdown class="ml-auto" v-else>
+              <div class="uppercase mb-2 text-sm font-medium text-gray">Sort By</div>
+              <SortBy
+                class="ml-auto"
+                v-if="mobileView"
+                :productsData="products"
+                @selectedSort="sortBy = $event"
               />
-            </paginate>
-            <paginate-links
-              for="fProduct"
-              class="my-10"
-              :show-step-links="true"
-              :hide-single-page="true"
-              :limit="3"
-            ></paginate-links>
+              <PriceFilter
+                @filterRange="filtered = $event"
+                :productsData="paginated('products')"
+                v-if="mobileView && paginated('products') && paginated('products').length"
+                class="mt-3"
+              />
+            </Dropdown>
           </div>
+          <paginate
+            name="products"
+            ref="paginator"
+            tag="div"
+            class="flex flex-wrap products"
+            :list="categorizedProducts"
+            :per="9"
+          >
+            <Product
+              v-for="(product,i) in paginated('products')"
+              :key="i"
+              :pData="product"
+              :pIndex="i"
+              @editedData="handleEditedData"
+            />
+          </paginate>
+          <paginate-links
+            for="products"
+            class="mt-8 mb-0 md:my-10"
+            :show-step-links="true"
+            :hide-single-page="true"
+            :limit="3"
+          ></paginate-links>
         </div>
 
-        <div class="w-9/12" v-else>
+        <div class="w-full lg:w-9/12 order-1 lg:order-2" v-else>
           <div class="flex flex-col justify-center items-center p-10 py-20">
             <img src="./assets/images/empty.png" class="max-w-full flex-shrink-0" alt />
-            <div class="text-xl sm:text-4xl text-center text-gray mt-2 pl-3">No Products Available</div>
+            <div class="text-lg sm:text-4xl text-center text-gray mt-2 pl-3">No Products Available</div>
           </div>
         </div>
       </div>
@@ -87,6 +122,7 @@ import Product from "./components/product";
 import TopProducts from "./components/topProducts";
 import PriceFilter from "./components/priceFilter";
 import SortBy from "./components/sortBy";
+import Dropdown from "./components/dropDown";
 
 const Categories = [
   {
@@ -120,16 +156,19 @@ export default {
     TopProducts,
     PriceFilter,
     SortBy,
+    Dropdown,
   },
   data() {
     return {
       products: [],
-      currentCategory: "Cate_0",
+      paginate: ["products"],
+      currentCategory: null,
       sortBy: null,
       Categories,
       modalVisible: false,
-      paginate: ["fProduct"],
       filtered: null,
+      hasRightSidebarOpen: false,
+      mobileView: false,
     };
   },
   watch: {
@@ -161,30 +200,24 @@ export default {
       this.setLocal();
     },
     handleEditedData(params) {
-      this.$set(this.products, params.index, params.prodData);
-      this.setLocal();
+      this.$set(this.paginated("products"), params.index, params.prodData);
     },
     setLocal() {
       localStorage
         ? localStorage.setItem("products", JSON.stringify(this.products))
         : "";
     },
+    handleResize({ width }) {
+      this.mobileView = width <= 1023 ? true : false;
+    },
   },
   computed: {
-    cProducts() {
-      return this.currentCategory === "Cate_0"
-        ? JSON.parse(JSON.stringify(this.products))
-        : this.products.filter(
-            (product) => product.category == this.currentCategory
-          );
-    },
-    fProduct() {
-      let filtereddata = this.filtered;
-      return filtereddata
-        ? this.cProducts.filter(
-            (p) => p.price >= filtereddata[0] && p.price <= filtereddata[1]
-          )
-        : this.cProducts;
+    categorizedProducts() {
+      let dataofCategory =
+        this.currentCategory === "Cate_0"
+          ? JSON.parse(JSON.stringify(this.products))
+          : this.products.filter((p) => p.category == this.currentCategory);
+      return dataofCategory;
     },
   },
 };

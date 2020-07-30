@@ -32,7 +32,7 @@ export default {
     generateTopProducts() {
       return this.productsData
         .filter((product) => product.isTopProduct == true)
-        .sort((a, b) => a.price - b.price);
+        .sort((a, b) => b.price - a.price);
     },
   },
 };

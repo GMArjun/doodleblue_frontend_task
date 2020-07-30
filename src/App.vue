@@ -23,18 +23,37 @@
 
         <div class="w-9/12" v-if="cProducts && cProducts.length">
           <div class="flex px-4 py-3">
-            <div class="mr-3 self-center text-gray">Showing 1 - 8 of {{cProducts.length}} Results</div>
+            <div
+              class="mr-3 self-center text-gray"
+              v-if="$refs.paginator"
+            >Showing {{$refs.paginator.pageItemsCount}} Results</div>
             <SortBy class="ml-auto" :productsData="cProducts" @selectedSort="sortBy = $event" />
           </div>
 
-          <div class="flex flex-wrap products" v-if="cProducts && cProducts.length">
-            <Product
-              v-for="(product,i) in cProducts"
-              :key="i"
-              :pData="product"
-              :pIndex="i"
-              @editedData="handleEditedData"
-            />
+          <div v-if="cProducts && cProducts.length">
+            <paginate
+              name="cProducts"
+              ref="paginator"
+              tag="div"
+              class="flex flex-wrap products"
+              :list="cProducts"
+              :per="9"
+            >
+              <Product
+                v-for="(product,i) in paginated('cProducts')"
+                :key="i"
+                :pData="product"
+                :pIndex="i"
+                @editedData="handleEditedData"
+              />
+            </paginate>
+            <paginate-links
+              for="cProducts"
+              class="my-10"
+              :show-step-links="true"
+              :hide-single-page="true"
+              :limit="3"
+            ></paginate-links>
           </div>
           <div v-else class="flex flex-col justify-center items-center p-10 py-20">
             <img src="./assets/images/empty.png" class="max-w-full flex-shrink-0" alt />
@@ -43,6 +62,7 @@
         </div>
       </div>
     </div>
+
     <P-Controller
       title="Add Product"
       @productDataBack="handleIncomingProduct"
@@ -100,6 +120,7 @@ export default {
       sortBy: null,
       Categories,
       modalVisible: false,
+      paginate: ["cProducts"],
     };
   },
   watch: {
@@ -127,7 +148,7 @@ export default {
   },
   methods: {
     handleIncomingProduct(params) {
-      this.products.push(params);
+      this.products.unshift(params);
       this.setLocal();
     },
     handleEditedData(params) {

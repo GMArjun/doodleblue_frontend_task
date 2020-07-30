@@ -21,10 +21,10 @@
           <TopProducts class="my-10" :productsData="products" v-if="products && products.length" />
         </div>
 
-        <div class="w-9/12">
+        <div class="w-9/12" v-if="cProducts && cProducts.length">
           <div class="flex px-4 py-3">
-            <div class="mr-auto self-center text-gray">Showing 1 - 8 of 9 Results</div>
-            <SortBy :productsData="cProducts" @selectedSort="sortBy = $event" />
+            <div class="mr-3 self-center text-gray">Showing 1 - 8 of {{cProducts.length}} Results</div>
+            <SortBy class="ml-auto" :productsData="cProducts" @selectedSort="sortBy = $event" />
           </div>
 
           <div class="flex flex-wrap products" v-if="cProducts && cProducts.length">

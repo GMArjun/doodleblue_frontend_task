@@ -1,15 +1,23 @@
 <template>
   <div id="app">
+    <VueSidebarUi v-model="hasRightSidebarOpen" :width="280" absolute left>
+      <i slot="button-icon" class="material-icons">
+        <img src="./assets/images/Hamburger.png" class="h-6 w-6" alt />
+      </i>
+      hello
+    </VueSidebarUi>
+
     <div class="max-w-screen-xl mx-auto px-3 py-3 sm:px-6 xl:px-0">
       <div class="flex py-8 sm:py-12">
         <div
-          class="self-center text-3xl sm:text-4xl font-medium mr-auto leading-none text-black"
+          class="self-center text-2xl flex sm:text-4xl font-medium mr-auto leading-none text-black"
         >Products</div>
         <button
           @click="modalVisible = true"
           class="px-4 sm:px-12 py-3 sm:py-4 rounded mainGradient text-white font-light text-base sm:text-2xl leading-none focus:outline-none"
         >Add Product</button>
       </div>
+
       <div class="flex flex-col lg:flex-row flex-wrap">
         <div class="w-full lg:w-3/12 pr-0 lg:pr-5 order-2 lg:order-1">
           <Categories-Tray
@@ -62,10 +70,10 @@
           </div>
         </div>
 
-        <div class="w-full lg:w-9/12" v-else>
+        <div class="w-full lg:w-9/12 order-1 lg:order-2" v-else>
           <div class="flex flex-col justify-center items-center p-10 py-20">
             <img src="./assets/images/empty.png" class="max-w-full flex-shrink-0" alt />
-            <div class="text-xl sm:text-4xl text-center text-gray mt-2 pl-3">No Products Available</div>
+            <div class="text-lg sm:text-4xl text-center text-gray mt-2 pl-3">No Products Available</div>
           </div>
         </div>
       </div>
@@ -130,6 +138,7 @@ export default {
       modalVisible: false,
       paginate: ["fProduct"],
       filtered: null,
+      hasRightSidebarOpen: false,
     };
   },
   watch: {

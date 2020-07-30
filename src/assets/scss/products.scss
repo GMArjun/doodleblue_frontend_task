@@ -444,8 +444,27 @@ label:hover:before {
                 @apply border-dark_orange bg-dark_orange text-white
             }
         }
-        &.disabled{
+
+        &.disabled {
             display: none;
         }
+    }
+}
+
+#VueSidebarUi {
+    .close-btn-container {
+        top: 0px !important;
+
+        button {
+            box-shadow: none !important;
+            width: 40px !important;
+            height: 40px !important;
+            background-color: var(--greyish) !important;
+
+            @media(min-width:1024px) {
+                display: none !important;
+            }
+        }
+
     }
 }

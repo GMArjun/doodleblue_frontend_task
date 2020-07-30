@@ -27,8 +27,8 @@
           />
           <PriceFilter
             @filterRange="filtered = $event"
-            :productsData="products"
-            v-if="products && products.length"
+            :productsData="paginated('products')"
+            v-if="paginated('products') && paginated('products').length"
             class="my-10"
           />
           <TopProducts class="my-10" :productsData="paginated('products')" v-if="paginated('products') && paginated('products').length" />
@@ -150,7 +150,7 @@ export default {
         default:
           break;
       }
-    }
+    },
   },
   mounted() {
     if (
@@ -176,13 +176,6 @@ export default {
     },
   },
   computed: {
-    // cProducts() {
-    //   return this.currentCategory === "Cate_0"
-    //     ? JSON.parse(JSON.stringify(this.products))
-    //     : this.products.filter(
-    //         (product) => product.category == this.currentCategory
-    //       );
-    // },
     // fProduct() {
     //   let filtereddata = this.filtered;
     //   return filtereddata
@@ -192,7 +185,8 @@ export default {
     //     : this.cProducts;
     // },
     categorizedProducts(){
-      return this.currentCategory === "Cate_0" ? this.products : this.products.filter((p) => p.category == this.currentCategory);
+      let dataofCategory = this.currentCategory === "Cate_0" ? JSON.parse(JSON.stringify(this.products)) : this.products.filter((p) => p.category == this.currentCategory);
+      return dataofCategory;
     }
   },
 };

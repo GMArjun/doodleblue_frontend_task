@@ -27,47 +27,44 @@
           />
           <PriceFilter
             @filterRange="filtered = $event"
-            :productsData="cProducts"
-            v-if="cProducts && cProducts.length"
+            :productsData="products"
+            v-if="products && products.length"
             class="my-10"
           />
-          <TopProducts class="my-10" :productsData="products" v-if="products && products.length" />
+          <TopProducts class="my-10" :productsData="paginated('products')" v-if="paginated('products') && paginated('products').length" />
         </div>
 
-        <div class="w-full lg:w-9/12 order-1 lg:order-2" v-if="fProduct && fProduct.length">
+        <div class="w-full lg:w-9/12 order-1 lg:order-2" v-if="products && products.length">
           <div class="flex px-4 py-3">
             <div
               class="mr-3 self-center text-gray"
               v-if="$refs.paginator"
             >Showing {{$refs.paginator.pageItemsCount}} Results</div>
-            <SortBy class="ml-auto" :productsData="fProduct" @selectedSort="sortBy = $event" />
+            <SortBy class="ml-auto" :productsData="products" @selectedSort="sortBy = $event" />
           </div>
-
-          <div v-if="fProduct && fProduct.length">
-            <paginate
-              name="fProduct"
-              ref="paginator"
-              tag="div"
-              class="flex flex-wrap products"
-              :list="fProduct"
-              :per="9"
-            >
-              <Product
-                v-for="(product,i) in paginated('fProduct')"
-                :key="i"
-                :pData="product"
-                :pIndex="i"
-                @editedData="handleEditedData"
-              />
-            </paginate>
-            <paginate-links
-              for="fProduct"
-              class="my-10"
-              :show-step-links="true"
-              :hide-single-page="true"
-              :limit="3"
-            ></paginate-links>
-          </div>
+          <paginate
+            name="products"
+            ref="paginator"
+            tag="div"
+            class="flex flex-wrap products"
+            :list="categorizedProducts"
+            :per="9"
+          >
+            <Product
+              v-for="(product,i) in paginated('products')"
+              :key="i"
+              :pData="product"
+              :pIndex="i"
+              @editedData="handleEditedData"
+            />
+          </paginate>
+          <paginate-links
+            for="products"
+            class="my-10"
+            :show-step-links="true"
+            :hide-single-page="true"
+            :limit="3"
+          ></paginate-links>
         </div>
 
         <div class="w-full lg:w-9/12 order-1 lg:order-2" v-else>
@@ -132,11 +129,11 @@ export default {
   data() {
     return {
       products: [],
-      currentCategory: "Cate_0",
+      paginate: ["products"],
+      currentCategory: null,
       sortBy: null,
       Categories,
       modalVisible: false,
-      paginate: ["fProduct"],
       filtered: null,
       hasRightSidebarOpen: false,
     };
@@ -153,7 +150,7 @@ export default {
         default:
           break;
       }
-    },
+    }
   },
   mounted() {
     if (
@@ -170,8 +167,7 @@ export default {
       this.setLocal();
     },
     handleEditedData(params) {
-      this.$set(this.products, params.index, params.prodData);
-      this.setLocal();
+      this.$set(this.paginated("products"), params.index, params.prodData);
     },
     setLocal() {
       localStorage
@@ -180,21 +176,24 @@ export default {
     },
   },
   computed: {
-    cProducts() {
-      return this.currentCategory === "Cate_0"
-        ? JSON.parse(JSON.stringify(this.products))
-        : this.products.filter(
-            (product) => product.category == this.currentCategory
-          );
-    },
-    fProduct() {
-      let filtereddata = this.filtered;
-      return filtereddata
-        ? this.cProducts.filter(
-            (p) => p.price >= filtereddata[0] && p.price <= filtereddata[1]
-          )
-        : this.cProducts;
-    },
+    // cProducts() {
+    //   return this.currentCategory === "Cate_0"
+    //     ? JSON.parse(JSON.stringify(this.products))
+    //     : this.products.filter(
+    //         (product) => product.category == this.currentCategory
+    //       );
+    // },
+    // fProduct() {
+    //   let filtereddata = this.filtered;
+    //   return filtereddata
+    //     ? this.cProducts.filter(
+    //         (p) => p.price >= filtereddata[0] && p.price <= filtereddata[1]
+    //       )
+    //     : this.cProducts;
+    // },
+    categorizedProducts(){
+      return this.currentCategory === "Cate_0" ? this.products : this.products.filter((p) => p.category == this.currentCategory);
+    }
   },
 };
 </script>

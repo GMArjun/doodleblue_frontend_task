@@ -21,6 +21,9 @@ export default {
     };
   },
   props: ["cateData"],
+  mounted() {
+    this.$emit("selectedCategory", "Cate_0");
+  },
   methods: {
     showByCategory(cateValue, i) {
       this.activeIndex = i;

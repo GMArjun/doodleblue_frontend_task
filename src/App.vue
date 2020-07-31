@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <resize-observer @notify="handleResize" />
-    <VueSidebarUi v-if="mobileView" v-model="hasRightSidebarOpen" :width="280" absolute left>
+    <VueSidebarUi v-if="mobileView" v-model="sidebarOpen" :width="280" absolute left>
       <i slot="button-icon" class="material-icons">
-        <img src="./assets/images/Hamburger.png" class="h-6 w-6" v-if="!hasRightSidebarOpen" alt />
+        <img src="./assets/images/Hamburger.png" class="h-6 w-6" v-if="!sidebarOpen" alt />
         <div v-else class="closeI"></div>
       </i>
       <div class="sidebar p-4">
@@ -19,7 +19,7 @@
         <div class="w-full lg:w-3/12 pr-0 lg:pr-5 order-2 lg:order-1">
           <Categories-Tray v-if="!mobileView" :cateData="Categories" @selectedCategory="currentC = $event" class="my-6" />
           <PriceFilter @filterRange="currentF = $event" :productsData="products" v-if="!mobileView && products && products.length" class="my-10" />
-          <TopProducts class="my-10" :productsData="paginated('products')" v-if="paginated('products') && paginated('products').length"/>
+          <TopProducts class="my-10" :productsData="products" v-if="products && products.length"/>
         </div>
         <div class="w-full lg:w-9/12 order-1 lg:order-2" v-if="products && products.length && filteredProducts && filteredProducts.length">
           <div class="flex px-2 lg:px-4 py-3">
@@ -101,7 +101,7 @@ export default {
       Categories,
       modalVisible: false,
       currentF: null,
-      hasRightSidebarOpen: false,
+      sidebarOpen: false,
       mobileView: false,
     };
   },
@@ -122,7 +122,7 @@ export default {
   mounted() {this.products = mockProducts && mockProducts.length ? mockProducts : []},
   methods: {
     handleIncomingProduct(params) {this.products.unshift(params)},
-    handleEditedData(params) {this.$set(this.paginated("products"), params.index, params.prodData)},
+    handleEditedData(params) {this.$set(this.products, params.index, params.prodData)},
     handleResize({ width }) {this.mobileView = width <= 1023 ? true : false},
   },
   computed: {

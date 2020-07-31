@@ -41,6 +41,7 @@ export default {
   },
   mounted() {
     this.selectedRange = [1, this.maxPrice];
+    this.filter();
   },
   computed: {
     maxPrice() {

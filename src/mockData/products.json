@@ -1,0 +1,56 @@
+[
+  {
+    "category": "Cate_3",
+    "title": "OnePlus 8",
+    "originalPrice": 32000,
+    "price": 29000,
+    "rating": 4,
+    "isTopProduct": true,
+    "image": "https://images-na.ssl-images-amazon.com/images/I/61FRLa8IFTL._SX522_.jpg"
+  },
+  {
+    "category": "Cate_3",
+    "title": "Acer Ultra 830C",
+    "originalPrice": 72000,
+    "price": 69000,
+    "rating": 4,
+    "isTopProduct": true,
+    "image": "https://m.media-amazon.com/images/I/911dhIY2SCL._AC_UY218_.jpg"
+  },
+  {
+    "category": "Cate_4",
+    "title": "Tattva Copper Bottle",
+    "originalPrice": 2020,
+    "price": 1690,
+    "rating": 0,
+    "isTopProduct": false,
+    "image": "https://images-eu.ssl-images-amazon.com/images/I/31tHbgakuHL._AC_US160_FMwebp_QL70_.jpg"
+  },
+  {
+    "category": "Cate_2",
+    "title": "Wings of Fire, An Autobiography",
+    "originalPrice": "",
+    "price": 2399,
+    "rating": 0,
+    "isTopProduct": false,
+    "image": "https://m.media-amazon.com/images/I/71KKZlVjbwL._AC_UL320_.jpg"
+  },
+  {
+    "category": "Cate_1",
+    "title": "Swarovski Elements White Austria Crystal",
+    "originalPrice": 29250,
+    "price": 6431,
+    "rating": 0,
+    "isTopProduct": false,
+    "image": "https://m.media-amazon.com/images/I/71UE4HLVDwL._AC_UL320_.jpg"
+  },
+  {
+    "category": "Cate_1",
+    "title": "Track Pant Lower Cotton",
+    "originalPrice": "",
+    "price": 634,
+    "rating": 0,
+    "isTopProduct": false,
+    "image": "https://m.media-amazon.com/images/I/81BikexdoEL._AC_UL320_.jpg"
+  }
+]

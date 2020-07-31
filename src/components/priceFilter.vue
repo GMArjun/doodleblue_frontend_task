@@ -5,7 +5,7 @@
     <div class="mt-3 mb-0 lg:my-4 text-sm flex">
       <button
         @click="filter"
-        class="p-1 px-4 mainGradient text-white rounded border-none focus:outline-none mr-auto"
+        class="p-1 px-4 mainGradient filterBtn text-white rounded border-none focus:outline-none mr-auto"
       >Filter</button>
       <div class="text-sm ml-3 self-center" v-if="selectedRange && selectedRange.length">
         <span class="mr-1 text-gray">Price:</span>

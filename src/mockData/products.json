@@ -9,60 +9,6 @@
     "image": "https://images-na.ssl-images-amazon.com/images/I/61FRLa8IFTL._SX522_.jpg"
   },
   {
-    "category": "Cate_1",
-    "title": "Mens Regular Fit Shirts",
-    "originalPrice": "",
-    "price": 1049,
-    "rating": 3,
-    "isTopProduct": true,
-    "image": "https://m.media-amazon.com/images/I/51TzeURd-HL._AC_UL320_.jpg"
-  },
-  {
-    "category": "Cate_1",
-    "title": "Track Pant Lower Cotton",
-    "originalPrice": "",
-    "price": 634,
-    "rating": 0,
-    "isTopProduct": false,
-    "image": "https://m.media-amazon.com/images/I/81BikexdoEL._AC_UL320_.jpg"
-  },
-  {
-    "category": "Cate_3",
-    "title": "Samsung 23.5 inch Monitor",
-    "originalPrice": 8999,
-    "price": 7600,
-    "rating": 4,
-    "isTopProduct": true,
-    "image": "https://m.media-amazon.com/images/I/71nplbAMwzL._AC_UY218_.jpg"
-  },
-  {
-    "category": "Cate_2",
-    "title": "The Girl in Room 105",
-    "originalPrice": "",
-    "price": 2399,
-    "rating": 0,
-    "isTopProduct": false,
-    "image": "https://m.media-amazon.com/images/I/51G3MfByofL._AC_UY218_.jpg"
-  },
-  {
-    "category": "Cate_4",
-    "title": "Prestige Omega Granite Aluminium Kitchen",
-    "originalPrice": 4500,
-    "price": 2950,
-    "rating": 4,
-    "isTopProduct": false,
-    "image": "https://images-eu.ssl-images-amazon.com/images/I/51PJb+J4GwL._AC_US160_FMwebp_QL70_.jpg"
-  },
-  {
-    "category": "Cate_1",
-    "title": "Running Sports Shoes",
-    "originalPrice": 999,
-    "price": 348,
-    "rating": 3,
-    "isTopProduct": true,
-    "image": "https://m.media-amazon.com/images/I/71A4FOEgLnL._AC_UL320_.jpg"
-  },
-  {
     "category": "Cate_3",
     "title": "Acer Ultra 830C",
     "originalPrice": 72000,
@@ -99,91 +45,12 @@
     "image": "https://m.media-amazon.com/images/I/71UE4HLVDwL._AC_UL320_.jpg"
   },
   {
-    "category": "Cate_3",
-    "title": "Mi Wireless",
-    "originalPrice": 5999,
-    "price": 4932,
-    "rating": 5,
-    "isTopProduct": true,
-    "image": "https://m.media-amazon.com/images/I/51jGCELP5zL._AC_UY218_.jpg"
-  },
-  {
-    "category": "Cate_3",
-    "title": "Samsung Smartwatch G Series",
-    "originalPrice": 0,
-    "price": 17000,
+    "category": "Cate_1",
+    "title": "Track Pant Lower Cotton",
+    "originalPrice": "",
+    "price": 634,
     "rating": 0,
     "isTopProduct": false,
-    "image": "https://m.media-amazon.com/images/I/6113mS+xhyL._AC_UL320_.jpg"
-  },
-  {
-    "category": "Cate_3",
-    "title": "Iphone 11",
-    "originalPrice": 0,
-    "price": 92000,
-    "rating": 5,
-    "isTopProduct": true,
-    "image": "https://m.media-amazon.com/images/I/51kGDXeFZKL._AC_UY218_.jpg"
-  },
-  {
-    "category": "Cate_2",
-    "title": "Think & Grow Big",
-    "originalPrice": 799,
-    "price": 469,
-    "rating": 0,
-    "isTopProduct": false,
-    "image": "https://m.media-amazon.com/images/I/711RcAn0EiL._AC_UY218_.jpg"
-  },
-  {
-    "category": "Cate_2",
-    "title": "The Subtle Art of not Giving F",
-    "originalPrice": 6999,
-    "price": 4800,
-    "rating": 2,
-    "isTopProduct": false,
-    "image": "https://m.media-amazon.com/images/I/71t4GuxLCuL._AC_UY218_.jpg"
-  },
-  {
-    "category": "Cate_3",
-    "title": "Urbn Powerbank",
-    "originalPrice": 2000,
-    "price": 1300,
-    "rating": 2,
-    "isTopProduct": true,
-    "image": "https://m.media-amazon.com/images/I/81HqQoPqfNL._AC_UL320_.jpg"
-  },
-  {
-    "category": "Cate_4",
-    "title": "Mra Fashion Orange Plain Polyester Cushion",
-    "originalPrice": 550,
-    "price": 349,
-    "rating": 0,
-    "isTopProduct": false,
-    "image": "https://m.media-amazon.com/images/I/31bjaKhRhRL._AC_UL320_.jpg"
-  },
-  {
-    "category": "Cate_4",
-    "title": "Kaainat's Fashion BeanBag",
-    "originalPrice": 2299,
-    "price": 1800,
-    "rating": 4,
-    "isTopProduct": true,
-    "image": "https://m.media-amazon.com/images/I/51o0KwZk8xL._AC_UL320_.jpg"
-  },
-  {
-    "category": "Cate_4",
-    "title": "Rolling Nature Good Luck Jade Plant In Round Dew Ceramic Pot",
-    "originalPrice": 799,
-    "price": 329,
-    "rating": 0,
-    "isTopProduct": false,
-    "image": "https://m.media-amazon.com/images/I/81Bt83fKapL._AC_UL320_.jpg"
+    "image": "https://m.media-amazon.com/images/I/81BikexdoEL._AC_UL320_.jpg"
   }
 ]
-
-
-
-
-
-
-

@@ -119,19 +119,11 @@ export default {
       }
     },
   },
-  mounted() {
-    this.products = mockProducts && mockProducts.length ? mockProducts : [];
-  },
+  mounted() {this.products = mockProducts && mockProducts.length ? mockProducts : []},
   methods: {
-    handleIncomingProduct(params) {
-      this.products.unshift(params);
-    },
-    handleEditedData(params) {
-      this.$set(this.paginated("products"), params.index, params.prodData);
-    },
-    handleResize({ width }) {
-      this.mobileView = width <= 1023 ? true : false;
-    },
+    handleIncomingProduct(params) {this.products.unshift(params)},
+    handleEditedData(params) {this.$set(this.paginated("products"), params.index, params.prodData)},
+    handleResize({ width }) {this.mobileView = width <= 1023 ? true : false},
   },
   computed: {
     filteredProducts() {
@@ -140,7 +132,7 @@ export default {
       rcF = this.currentF ? cF.filter((p) => p.price >= this.currentF[0] && p.price <= this.currentF[1]) : cF;
       return rcF;
     },
-  },
+  }
 };
 </script>
 

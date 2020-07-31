@@ -24,10 +24,7 @@
                   <div class="mb-6" :class="{ 'hasError': $v.selectedCategory.$error }">
                     <label class="block text-lg mb-2">Product Category</label>
                     <div class="flex customSelect">
-                      <select
-                        class="border w-full p-3 sm:p-4 border-r-0"
-                        v-model="selectedCategory"
-                      >
+                      <select class="border w-full p-3 sm:p-4 border-r-0" v-model="selectedCategory">
                         <option value disabled>Select</option>
                         <option value="Cate_1">Fashion</option>
                         <option value="Cate_2">Book & Audible</option>
@@ -38,11 +35,7 @@
                         <font-awesome-icon :icon="['fa', 'chevron-down']" class="text-gray" />
                       </span>
                     </div>
-
-                    <div
-                      v-if="$v.selectedCategory.$error"
-                      class="text-sm text-red mt-2 text-right font-roboto"
-                    >Product Category is Required *</div>
+                    <div v-if="$v.selectedCategory.$error" class="text-sm text-red mt-2 text-right font-roboto">Product Category is Required *</div>
                   </div>
                   <div class="mb-6" :class="{ 'hasError': $v.productTitle.$error }">
                     <label class="block text-lg mb-2">Product Title</label>
